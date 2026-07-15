@@ -46,6 +46,7 @@ function drawRoad(offset) {
 
 function gameLoop() {
     vip.x += 2;
+    enemy.update(vip);
 
     if (touchX !== null) {
 
