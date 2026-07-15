@@ -5,12 +5,23 @@ function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 }
+
 window.addEventListener("resize", resize);
 resize();
 
+// --------------------
+// GAME OBJECTS
+// --------------------
+
 const vip = new Player(200, canvas.height / 2, "yellow");
 const guard = new Player(140, canvas.height / 2, "cyan");
+
 const enemy = new Enemy(700, canvas.height / 2);
+
+// --------------------
+// TOUCH INPUT
+// --------------------
+
 let touchX = null;
 let touchY = null;
 
@@ -31,44 +42,75 @@ canvas.addEventListener("pointerup", () => {
     touchY = null;
 });
 
+// --------------------
+// DRAW ROAD
+// --------------------
+
 function drawRoad(offset) {
+
     ctx.fillStyle = "#2e8b57";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#555";
-    ctx.fillRect(0, canvas.height / 2 - 50, canvas.width, 100);
+    ctx.fillRect(
+        0,
+        canvas.height / 2 - 50,
+        canvas.width,
+        100
+    );
 
     ctx.fillStyle = "white";
+
     for (let i = -80; i < canvas.width + 80; i += 80) {
-        ctx.fillRect(i - (offset % 80), canvas.height / 2 - 3, 40, 6);
+
+        ctx.fillRect(
+            i - (offset % 80),
+            canvas.height / 2 - 3,
+            40,
+            6
+        );
+
     }
+
 }
+
+// --------------------
+// GAME LOOP
+// --------------------
 
 function gameLoop() {
+
+    // VIP walks forward
     vip.x += 2;
+
+    // Enemy chases VIP
     enemy.update(vip);
 
+    // Player movement
     if (touchX !== null) {
 
-    const worldX = touchX + (vip.x - canvas.width / 2);
-    const worldY = touchY;
+        const worldX = touchX + (vip.x - canvas.width / 2);
+        const worldY = touchY;
 
-    const dx = worldX - guard.x;
-    const dy = worldY - guard.y;
+        const dx = worldX - guard.x;
+        const dy = worldY - guard.y;
 
-    const dist = Math.hypot(dx, dy);
+        const dist = Math.hypot(dx, dy);
 
-    if (dist > 2) {
-        guard.x += (dx / dist) * 4;
-        guard.y += (dy / dist) * 4;
+        if (dist > 2) {
+
+            guard.x += (dx / dist) * 4;
+            guard.y += (dy / dist) * 4;
+
+        }
+
+    } else {
+
+        // Escort position
+        guard.x += (vip.x - 60 - guard.x) * 0.05;
+        guard.y += (vip.y - guard.y) * 0.05;
+
     }
-
-} else {
-
-    guard.x += (vip.x - 60 - guard.x) * 0.05;
-    guard.y += (vip.y - guard.y) * 0.05;
-
-}
 
     const cameraX = vip.x - canvas.width / 2;
 
@@ -77,23 +119,25 @@ function gameLoop() {
     vip.draw(ctx, cameraX);
     guard.draw(ctx, cameraX);
     enemy.draw(ctx, cameraX);
-    
+
+    // Game Over
     const hit = Math.hypot(
-    enemy.x - vip.x,
-    enemy.y - vip.y
-);
+        enemy.x - vip.x,
+        enemy.y - vip.y
+    );
 
-if (hit < 18) {
+    if (hit < 18) {
 
-    alert("VIP DOWN");
+        alert("VIP DOWN!");
 
-    location.reload();
+        location.reload();
 
-    return;
+        return;
 
-}
+    }
 
     requestAnimationFrame(gameLoop);
+
 }
 
 gameLoop();
