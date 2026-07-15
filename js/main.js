@@ -258,9 +258,13 @@ for (let i = bullets.length - 1; i >= 0; i--) {
 }
 
     // Score
-    ctx.fillStyle = "white";
-    ctx.font = "24px monospace";
-    ctx.fillText("Score: " + score, 20, 40);
+ctx.fillStyle = "white";
+ctx.font = "20px monospace";
+
+ctx.fillText("Score: " + score, 20, 30);
+ctx.fillText("Cash: $" + cash, 20, 55);
+ctx.fillText("Wave: " + wave, 20, 80);
+ctx.fillText("Remaining: " + enemiesRemaining, 20, 105);
 
 
 
