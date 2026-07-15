@@ -10,6 +10,25 @@ resize();
 
 const vip = new Player(200, canvas.height / 2, "yellow");
 const guard = new Player(140, canvas.height / 2, "cyan");
+let touchX = null;
+let touchY = null;
+
+canvas.addEventListener("pointerdown", (e) => {
+    touchX = e.clientX;
+    touchY = e.clientY;
+});
+
+canvas.addEventListener("pointermove", (e) => {
+    if (e.buttons || e.pointerType === "touch") {
+        touchX = e.clientX;
+        touchY = e.clientY;
+    }
+});
+
+canvas.addEventListener("pointerup", () => {
+    touchX = null;
+    touchY = null;
+});
 
 function drawRoad(offset) {
     ctx.fillStyle = "#2e8b57";
