@@ -26,18 +26,22 @@ let touchX = null;
 let touchY = null;
 
 canvas.addEventListener("pointerdown", (e) => {
+    e.preventDefault();
     touchX = e.clientX;
     touchY = e.clientY;
 });
 
 canvas.addEventListener("pointermove", (e) => {
+    e.preventDefault();
+
     if (e.buttons || e.pointerType === "touch") {
         touchX = e.clientX;
         touchY = e.clientY;
     }
 });
 
-canvas.addEventListener("pointerup", () => {
+canvas.addEventListener("pointerup", (e) => {
+    e.preventDefault();
     touchX = null;
     touchY = null;
 });
