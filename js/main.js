@@ -227,15 +227,27 @@ for (let i = bullets.length - 1; i >= 0; i--) {
 
 
     // VIP hit
-   for (const enemy of enemies) {
+// VIP hit
+for (const enemy of enemies) {
 
     if (Math.hypot(enemy.x - vip.x, enemy.y - vip.y) < 18) {
 
-        alert("VIP DOWN!\nScore: " + score);
-        location.reload();
-        return;
+        vip.health -= 25;
+
+        enemies.splice(enemies.indexOf(enemy), 1);
+        enemies.push(randomEnemy());
+
+        if (vip.health <= 0) {
+
+            alert("VIP DOWN!\nScore: " + score);
+            location.reload();
+            return;
+
+        }
 
     }
+
+}
 
 }
 
