@@ -170,6 +170,22 @@ if (
     drawRoad(cameraX);
 
     vip.draw(ctx, cameraX);
+    // VIP Health Bar
+ctx.fillStyle = "red";
+ctx.fillRect(
+    vip.x - cameraX - 25,
+    vip.y - 45,
+    50,
+    6
+);
+
+ctx.fillStyle = "lime";
+ctx.fillRect(
+    vip.x - cameraX - 25,
+    vip.y - 45,
+    50 * (vip.health / vip.maxHealth),
+    6
+);
     guard.draw(ctx, cameraX);
     for (const enemy of enemies) {
     enemy.draw(ctx, cameraX);
