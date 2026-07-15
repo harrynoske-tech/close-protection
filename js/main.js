@@ -77,6 +77,21 @@ function gameLoop() {
     vip.draw(ctx, cameraX);
     guard.draw(ctx, cameraX);
     enemy.draw(ctx, cameraX);
+    
+    const hit = Math.hypot(
+    enemy.x - vip.x,
+    enemy.y - vip.y
+);
+
+if (hit < 18) {
+
+    alert("VIP DOWN");
+
+    location.reload();
+
+    return;
+
+}
 
     requestAnimationFrame(gameLoop);
 }
