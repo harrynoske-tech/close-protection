@@ -15,6 +15,8 @@ const vip = new Player(
     canvas.height / 2,
     "vip"
 );
+vip.health = 100;
+vip.maxHealth = 100;
 
 const guard = new Player(
     140,
