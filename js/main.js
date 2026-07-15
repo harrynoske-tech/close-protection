@@ -46,8 +46,27 @@ function drawRoad(offset) {
 function gameLoop() {
     vip.x += 2;
 
+    if (touchX !== null) {
+
+    const worldX = touchX + (vip.x - canvas.width / 2);
+    const worldY = touchY;
+
+    const dx = worldX - guard.x;
+    const dy = worldY - guard.y;
+
+    const dist = Math.hypot(dx, dy);
+
+    if (dist > 2) {
+        guard.x += (dx / dist) * 4;
+        guard.y += (dy / dist) * 4;
+    }
+
+} else {
+
     guard.x += (vip.x - 60 - guard.x) * 0.05;
     guard.y += (vip.y - guard.y) * 0.05;
+
+}
 
     const cameraX = vip.x - canvas.width / 2;
 
