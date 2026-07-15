@@ -10,11 +10,21 @@ function resize() {
 window.addEventListener("resize", resize);
 resize();
 
-const vip = new Player(200, canvas.height / 2, "yellow");
-const guard = new Player(140, canvas.height / 2, "cyan");
+const vip = new Player(
+    200,
+    canvas.height / 2,
+    "vip"
+);
+
+const guard = new Player(
+    140,
+    canvas.height / 2,
+    "guard"
+);
 
 let score = 0;
 const bullets = [];
+const MAX_BULLETS = 40;
 
 function randomEnemy() {
 
@@ -114,6 +124,8 @@ if (
     now - guard.lastShot > guard.fireRate
 ) {
 
+  if (bullets.length < MAX_BULLETS) {
+
     bullets.push(
         new Bullet(
             guard.x,
@@ -122,6 +134,8 @@ if (
             closestEnemy.y
         )
     );
+
+}
 
     guard.lastShot = now;
 
