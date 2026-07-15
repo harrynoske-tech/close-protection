@@ -214,13 +214,32 @@ for (const bullet of bullets) {
 
             bullet.dead = true;
 
-            score += 10;
+// Rewards
+score += 10;
+cash += 50;
+enemiesRemaining--;
 
-            enemies.splice(i, 1);
+// Remove attacker
+enemies.splice(i, 1);
 
-            enemies.push(randomEnemy());
+// Wave finished?
+if (enemiesRemaining <= 0) {
 
-            break;
+    wave++;
+
+    enemiesRemaining = wave * 3;
+
+    for (let j = 0; j < enemiesRemaining; j++) {
+        enemies.push(randomEnemy());
+    }
+
+} else {
+
+    enemies.push(randomEnemy());
+
+}
+
+break;
 
         }
 
