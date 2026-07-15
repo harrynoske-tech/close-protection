@@ -76,6 +76,7 @@ function gameLoop() {
 
     vip.draw(ctx, cameraX);
     guard.draw(ctx, cameraX);
+    enemy.draw(ctx, cameraX);
 
     requestAnimationFrame(gameLoop);
 }
