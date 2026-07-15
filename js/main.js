@@ -287,8 +287,6 @@ for (const enemy of enemies) {
 
 }
 
-}
-
     requestAnimationFrame(gameLoop);
 
 }
