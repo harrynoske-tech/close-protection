@@ -10,6 +10,7 @@ resize();
 
 const vip = new Player(200, canvas.height / 2, "yellow");
 const guard = new Player(140, canvas.height / 2, "cyan");
+const enemy = new Enemy(700, canvas.height / 2);
 let touchX = null;
 let touchY = null;
 
