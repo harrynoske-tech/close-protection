@@ -1,8 +1,13 @@
+const offenderImage = new Image();
+offenderImage.src = "assets/sprites/offender.png";
+
 class Enemy {
 
     constructor(x, y) {
-        this.size = 16;
         this.speed = 1.6;
+        this.width = 48;
+        this.height = 64;
+
         this.respawn(x, y);
     }
 
@@ -19,20 +24,19 @@ class Enemy {
         const dist = Math.hypot(dx, dy);
 
         if (dist > 1) {
-            this.x += dx / dist * this.speed;
-            this.y += dy / dist * this.speed;
+            this.x += (dx / dist) * this.speed;
+            this.y += (dy / dist) * this.speed;
         }
-
     }
 
     draw(ctx, cameraX) {
-        ctx.fillStyle = "red";
-        ctx.fillRect(
-            this.x - cameraX - this.size / 2,
-            this.y - this.size / 2,
-            this.size,
-            this.size
+
+        ctx.drawImage(
+            offenderImage,
+            this.x - cameraX - this.width / 2,
+            this.y - this.height / 2,
+            this.width,
+            this.height
         );
     }
-
 }
