@@ -1,13 +1,20 @@
+const guardImage = new Image();
+guardImage.src = "assets/sprites/bodyguard.png";
+
+const vipImage = new Image();
+vipImage.src = "assets/sprites/vip.png";
+
 class Player {
-    constructor(x, y, colour) {
+    constructor(x, y, type) {
         this.x = x;
         this.y = y;
-        this.colour = colour;
-        this.size = 16;
+        this.type = type;
 
-        // Combat
+        this.width = 48;
+        this.height = 64;
+
         this.range = 180;
-        this.fireRate = 400; // milliseconds
+        this.fireRate = 400;
         this.lastShot = 0;
     }
 
@@ -19,13 +26,18 @@ class Player {
     }
 
     draw(ctx, cameraX) {
-        ctx.fillStyle = this.colour;
 
-        ctx.fillRect(
-            this.x - cameraX - this.size / 2,
-            this.y - this.size / 2,
-            this.size,
-            this.size
+        const image =
+            this.type === "guard"
+                ? guardImage
+                : vipImage;
+
+        ctx.drawImage(
+            image,
+            this.x - cameraX - this.width / 2,
+            this.y - this.height / 2,
+            this.width,
+            this.height
         );
     }
 }
