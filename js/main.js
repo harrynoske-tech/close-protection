@@ -25,6 +25,9 @@ const guard = new Player(
 );
 
 let score = 0;
+let wave = 1;
+let enemiesRemaining = 3;
+let cash = 0;
 const bullets = [];
 const MAX_BULLETS = 40;
 
