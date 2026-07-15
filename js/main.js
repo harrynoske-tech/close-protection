@@ -39,7 +39,11 @@ function randomEnemy() {
 
 }
 
-let enemy = randomEnemy();
+let enemies = [];
+
+for (let i = 0; i < 3; i++) {
+    enemies.push(randomEnemy());
+}
 
 let touchX = null;
 let touchY = null;
@@ -85,17 +89,37 @@ function gameLoop() {
 
     vip.x += 2;
 
+    for (const enemy of enemies) {
     enemy.update(vip);
+}
     const now = Date.now();
 
-if (guard.canShoot(enemy) && now - guard.lastShot > guard.fireRate) {
+let closestEnemy = null;
+let closestDistance = Infinity;
+
+for (const enemy of enemies) {
+
+    const d = Math.hypot(enemy.x - guard.x, enemy.y - guard.y);
+
+    if (d < closestDistance) {
+        closestDistance = d;
+        closestEnemy = enemy;
+    }
+
+}
+
+if (
+    closestEnemy &&
+    guard.canShoot(closestEnemy) &&
+    now - guard.lastShot > guard.fireRate
+) {
 
     bullets.push(
         new Bullet(
             guard.x,
             guard.y,
-            enemy.x,
-            enemy.y
+            closestEnemy.x,
+            closestEnemy.y
         )
     );
 
@@ -131,7 +155,9 @@ if (guard.canShoot(enemy) && now - guard.lastShot > guard.fireRate) {
 
     vip.draw(ctx, cameraX);
     guard.draw(ctx, cameraX);
+    for (const enemy of enemies) {
     enemy.draw(ctx, cameraX);
+}
     for (const bullet of bullets) {
 
     bullet.update();
@@ -140,18 +166,28 @@ if (guard.canShoot(enemy) && now - guard.lastShot > guard.fireRate) {
 }
 for (const bullet of bullets) {
 
-    if (
-        Math.hypot(
-            bullet.x - enemy.x,
-            bullet.y - enemy.y
-        ) < 14
-    ) {
+    for (let i = enemies.length - 1; i >= 0; i--) {
 
-        score += 10;
+        const enemy = enemies[i];
 
-        enemy = randomEnemy();
+        if (
+            Math.hypot(
+                bullet.x - enemy.x,
+                bullet.y - enemy.y
+            ) < 14
+        ) {
 
-        bullet.dead = true;
+            bullet.dead = true;
+
+            score += 10;
+
+            enemies.splice(i, 1);
+
+            enemies.push(randomEnemy());
+
+            break;
+
+        }
 
     }
 
@@ -172,22 +208,20 @@ for (let i = bullets.length - 1; i >= 0; i--) {
     ctx.font = "24px monospace";
     ctx.fillText("Score: " + score, 20, 40);
 
-    // Bodyguard intercepts enemy
-    if (Math.hypot(enemy.x - guard.x, enemy.y - guard.y) < 20) {
 
-        score += 10;
-        enemy = randomEnemy();
-
-    }
 
     // VIP hit
+   for (const enemy of enemies) {
+
     if (Math.hypot(enemy.x - vip.x, enemy.y - vip.y) < 18) {
 
-        alert("VIP DOWN!\\nScore: " + score);
+        alert("VIP DOWN!\nScore: " + score);
         location.reload();
         return;
 
     }
+
+}
 
     requestAnimationFrame(gameLoop);
 
