@@ -599,17 +599,6 @@ vip.y = canvas.height / 2;
     ctx.fillStyle = "white";
     ctx.fill();
 
-    // Right joystick base
-    ctx.beginPath();
-    ctx.arc(
-        rightStick.x,
-        rightStick.y,
-        rightStick.radius,
-        0,
-        Math.PI * 2
-    );
-    ctx.fill();
-
     ctx.globalAlpha = 1;
 
     // Left thumb
