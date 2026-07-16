@@ -9,6 +9,9 @@ class Enemy {
         this.height = 64;
         this.health = 100;
 
+        this.knockbackX = 0;
+        this.knockbackY = 0;
+
         this.lastAttack = 0;
         this.attackRate = 500;
 
