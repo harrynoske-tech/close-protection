@@ -318,36 +318,32 @@ function getClosestEnemy() {
 
 function updateShooting() {
 
-    const enemy = getClosestEnemy();
-
-    if (!enemy) return;
+    if (!aiming) return;
 
     const now = Date.now();
 
-    if (
-        Math.hypot(
-            enemy.x - guard.x,
-            enemy.y - guard.y
-        ) < guard.range &&
-        now - guard.lastShot > guard.fireRate
-    ) {
+    if (now - guard.lastShot < guard.fireRate)
+        return;
 
-        if (bullets.length < MAX_BULLETS) {
+    if (bullets.length >= MAX_BULLETS)
+        return;
 
-            bullets.push(
-                new Bullet(
-                    guard.x,
-                    guard.y,
-                    enemy.x,
-                    enemy.y
-                )
-            );
+    const targetX =
+        guard.x + Math.cos(aimAngle) * 1000;
 
-        }
+    const targetY =
+        guard.y + Math.sin(aimAngle) * 1000;
 
-        guard.lastShot = now;
+    bullets.push(
+        new Bullet(
+            guard.x,
+            guard.y,
+            targetX,
+            targetY
+        )
+    );
 
-    }
+    guard.lastShot = now;
 
 }
 
