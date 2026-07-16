@@ -53,8 +53,8 @@ let aimY = 0;
 // --------------------------------------------------
 
 const vip = new Player(
-    200,
-    window.innerHeight / 2,
+    canvas.width / 2,
+    canvas.height / 2,
     "vip"
 );
 
@@ -62,10 +62,18 @@ vip.health = 100;
 vip.maxHealth = 100;
 
 const guard = new Player(
-    140,
-    window.innerHeight / 2,
+    canvas.width / 2 - 80,
+    canvas.height / 2,
     "guard"
 );
+
+guard.weapon = "knife";
+guard.damage = 25;
+guard.range = 140;
+guard.fireRate = 700;
+
+guard.health = 100;
+guard.maxHealth = 100;
 
 guard.weapon = "knife";
 guard.damage = 25;
