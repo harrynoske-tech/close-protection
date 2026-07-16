@@ -9,7 +9,6 @@ crosshairImage.src = "assets/sprites/crosshair.png";
 // --------------------------------------------------
 // SCREEN
 // --------------------------------------------------
-
 function resize() {
 
     canvas.width = window.innerWidth;
@@ -19,6 +18,11 @@ function resize() {
 
     rightStick.x = canvas.width - 120;
     rightStick.y = canvas.height - 120;
+
+    maxAimDistance = Math.max(
+        canvas.width,
+        canvas.height
+    );
 
 }
 
