@@ -89,13 +89,6 @@ guard.fireRate = 700;
 guard.health = 100;
 guard.maxHealth = 100;
 
-guard.weapon = "knife";
-guard.damage = 25;
-guard.range = 140;
-guard.fireRate = 700;
-
-guard.health = 100;
-guard.maxHealth = 100;
 
 // --------------------------------------------------
 // GAME
