@@ -108,7 +108,8 @@ function gameLoop() {
 
     vip.x += 2;
 
-    for (const enemy of enemies) {
+    // Update enemies
+for (const enemy of enemies) {
 
     const guardDistance = Math.hypot(
         enemy.x - guard.x,
@@ -125,7 +126,11 @@ function gameLoop() {
     } else {
         enemy.update(vip);
     }
-    for (let i = enemies.length - 1; i >= 0; i--) {
+
+}
+
+// Respawn enemies that wander too far away
+for (let i = enemies.length - 1; i >= 0; i--) {
 
     const enemy = enemies[i];
 
@@ -141,9 +146,6 @@ function gameLoop() {
 
     }
 
-}
-
-}
 }
     const now = Date.now();
 
