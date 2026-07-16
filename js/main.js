@@ -49,7 +49,7 @@ const WEAPONS = {
         name: "MK6",
         damage: 0,
         fireRate: 500,
-        range: 60,
+        range: 120,
         bulletSpeed: 0
     },
 
@@ -355,8 +355,22 @@ function updateShooting() {
             enemy.x - guard.x,
             enemy.y - guard.y
         );
+        const angleToEnemy = Math.atan2(
+    enemy.y - guard.y,
+    enemy.x - guard.x
+);
 
-        if (dist < guard.weapon.range) {
+const guardAngle = Math.atan2(
+    vip.y - guard.y,
+    vip.x - guard.x
+);
+
+const angleDiff = Math.abs(angleToEnemy - guardAngle);
+
+        if (
+    dist < guard.weapon.range &&
+    angleDiff < 0.6
+) {
 
             enemy.sprayed = true;
             enemy.sprayEndTime = Date.now() + 2000;
@@ -364,6 +378,33 @@ function updateShooting() {
         }
 
     }
+
+}
+    function drawMK6Cone() {
+
+    if (guard.weapon.name !== "MK6")
+        return;
+
+    const angle = Math.atan2(
+        vip.y - guard.y,
+        vip.x - guard.x
+    );
+
+    ctx.fillStyle = "rgba(255,120,0,0.25)";
+
+    ctx.beginPath();
+    ctx.moveTo(guard.x, guard.y);
+
+    ctx.arc(
+        guard.x,
+        guard.y,
+        guard.weapon.range,
+        angle - 0.6,
+        angle + 0.6
+    );
+
+    ctx.closePath();
+    ctx.fill();
 
 }
 // --------------------------------------------------
@@ -705,6 +746,8 @@ if (!betweenWaves) {
 
     // Draw players
     drawPlayers(cameraX);
+
+    drawMK6Cone();
 
     // Draw health bars
     drawHealthBars(cameraX);
