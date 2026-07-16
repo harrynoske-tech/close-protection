@@ -220,7 +220,7 @@ const followY = guard.y;
 vip.x += (followX - vip.x) * 0.05;
 vip.y += (followY - vip.y) * 0.05;
 
-    const cameraX = vip.x - canvas.width / 2;
+    const cameraX = guard.x - canvas.width / 2;
 
     drawRoad(cameraX);
 
