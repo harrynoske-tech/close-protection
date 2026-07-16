@@ -3,6 +3,7 @@ document.addEventListener("contextmenu", (e) => e.preventDefault());
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const crosshairImage = new Image();
+const maxAimDistance = Math.max(canvas.width, canvas.height);
 crosshairImage.src = "assets/sprites/crosshair.png";
 
 // --------------------------------------------------
@@ -544,9 +545,8 @@ function drawCrosshair(cameraX) {
         rightStick.radius
     );
 
-    const distance =
-        40 +
-        (stickDistance / rightStick.radius) * 320;
+ const distance =
+    (stickDistance / rightStick.radius) * maxAimDistance;
 
     crosshairX =
         guard.x +
