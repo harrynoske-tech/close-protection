@@ -175,12 +175,19 @@ canvas.addEventListener("pointermove", (e) => {
 
     }
 
-    if (e.pointerId === shootTouch) {
+  if (e.pointerId === shootTouch) {
 
-        aimX = e.clientX;
-        aimY = e.clientY;
+    aimX = e.clientX;
+    aimY = e.clientY;
 
-    }
+    const dx = aimX - rightStick.x;
+    const dy = aimY - rightStick.y;
+
+    aimAngle = Math.atan2(dy, dx);
+
+    aiming = true;
+
+}
 
 });
 
@@ -189,10 +196,13 @@ canvas.addEventListener("pointerup", (e) => {
     if (e.pointerId === moveTouch) {
         moveTouch = null;
     }
+    
+if (e.pointerId === shootTouch) {
 
-    if (e.pointerId === shootTouch) {
-        shootTouch = null;
-    }
+    shootTouch = null;
+    aiming = false;
+
+}
 
 });
 
