@@ -481,60 +481,6 @@ function drawHealthBars(cameraX) {
 
 }
 
-function drawCrosshair(cameraX) {
-
-    if (shootTouch !== null) {
-
-        const dx = aimX - rightStick.x;
-        const dy = aimY - rightStick.y;
-
-        const dist = Math.hypot(dx, dy);
-
-        if (dist > 10) {
-
-            const nx = dx / dist;
-            const ny = dy / dist;
-
-            const power = Math.min(
-                dist / rightStick.radius,
-                1
-            );
-
-            crosshairX +=
-                nx *
-                crosshairSpeed *
-                power;
-
-            crosshairY +=
-                ny *
-                crosshairSpeed *
-                power;
-
-        }
-
-    }
-
-    // Keep it on screen
-    crosshairX = Math.max(
-        20,
-        Math.min(canvas.width - 20, crosshairX)
-    );
-
-    crosshairY = Math.max(
-        20,
-        Math.min(canvas.height - 20, crosshairY)
-    );
-
-    ctx.drawImage(
-        crosshairImage,
-        crosshairX - 20,
-        crosshairY - 20,
-        40,
-        40
-    );
-
-}
-
 function drawHUD() {
 
     ctx.fillStyle = "white";
