@@ -360,9 +360,13 @@ function updateShooting() {
     enemy.x - guard.x
 );
 
+const enemy = getClosestEnemy();
+
+if (!enemy) return;
+
 const guardAngle = Math.atan2(
-    vip.y - guard.y,
-    vip.x - guard.x
+    enemy.y - guard.y,
+    enemy.x - guard.x
 );
 
 const angleDiff = Math.abs(angleToEnemy - guardAngle);
@@ -385,10 +389,14 @@ const angleDiff = Math.abs(angleToEnemy - guardAngle);
     if (guard.weapon.name !== "MK6")
         return;
 
-    const angle = Math.atan2(
-        vip.y - guard.y,
-        vip.x - guard.x
-    );
+const enemy = getClosestEnemy();
+
+if (!enemy) return;
+
+const angle = Math.atan2(
+    enemy.y - guard.y,
+    enemy.x - guard.x
+);
 
     ctx.fillStyle = "rgba(255,120,0,0.25)";
 
