@@ -427,6 +427,29 @@ function updateVIPDamage() {
     }
 
 }
+
+function updateBodyChecks() {
+
+    for (const enemy of enemies) {
+
+        const dx = enemy.x - guard.x;
+        const dy = enemy.y - guard.y;
+
+        const dist = Math.hypot(dx, dy);
+
+        if (dist < 40) {
+
+            enemy.knockbackX =
+                (dx / dist) * 10;
+
+            enemy.knockbackY =
+                (dy / dist) * 10;
+
+        }
+
+    }
+
+}
 // --------------------------------------------------
 // DRAWING
 // --------------------------------------------------
