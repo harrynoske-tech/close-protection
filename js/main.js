@@ -93,8 +93,15 @@ for (let i = 0; i < 3; i++) {
     enemies.push(randomEnemy());
 }
 
-let touchX = null;
-let touchY = null;
+// Left joystick
+let moveTouch = null;
+let moveX = 0;
+let moveY = 0;
+
+// Right joystick
+let shootTouch = null;
+let aimX = 0;
+let aimY = 0;
 
 canvas.addEventListener("pointerdown", (e) => {
     e.preventDefault();
