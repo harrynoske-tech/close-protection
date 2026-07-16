@@ -270,6 +270,10 @@ function getClosestEnemy() {
 
 function updateShooting() {
 
+    const enemy = getClosestEnemy();
+
+    if (!enemy) return;
+
     const now = Date.now();
 
     if (now - guard.lastShot < guard.fireRate)
@@ -278,22 +282,26 @@ function updateShooting() {
     if (bullets.length >= MAX_BULLETS)
         return;
 
-const targetX = crosshairX;
-const targetY = crosshairY;
+    const distance = Math.hypot(
+        enemy.x - guard.x,
+        enemy.y - guard.y
+    );
+
+    if (distance > guard.range)
+        return;
 
     bullets.push(
         new Bullet(
             guard.x,
             guard.y,
-            targetX,
-            targetY
+            enemy.x,
+            enemy.y
         )
     );
 
     guard.lastShot = now;
 
 }
-
 // --------------------------------------------------
 // BULLETS
 // --------------------------------------------------
