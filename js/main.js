@@ -129,7 +129,10 @@ for (const enemy of enemies) {
 
 if (
     closestEnemy &&
-    guard.canShoot(closestEnemy) &&
+    Math.hypot(
+        closestEnemy.x - guard.x,
+        closestEnemy.y - guard.y
+    ) < guard.range &&
     now - guard.lastShot > guard.fireRate
 ) {
 
