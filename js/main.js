@@ -22,6 +22,16 @@ rightStick.y = canvas.height - 120;
 
 }
 
+function resize() {
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    leftStick.y = canvas.height - 120;
+
+    rightStick.x = canvas.width - 120;
+    rightStick.y = canvas.height - 120;
+
     if (canvas.width < canvas.height) {
 
         ctx.fillStyle = "black";
