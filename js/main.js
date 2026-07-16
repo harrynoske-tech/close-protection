@@ -47,6 +47,8 @@ let moveY = 0;
 
 let aimX = 0;
 let aimY = 0;
+let aimAngle = 0;
+let aiming = false;
 
 // --------------------------------------------------
 // PLAYERS
