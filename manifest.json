@@ -1,6 +1,6 @@
 {
-  "name": "Close Protection",
-  "short_name": "CPP The Game",
+  "name": "CPP",
+  "short_name": "CPP - THE GAME",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#111111",
