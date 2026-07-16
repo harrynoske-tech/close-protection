@@ -653,47 +653,6 @@ if (moveTouch !== null) {
     ctx.fillStyle = "#4da6ff";
     ctx.fill();
 
-    // Right thumb
-let rightThumbX = rightStick.x;
-let rightThumbY = rightStick.y;
-
-if (shootTouch !== null) {
-
-    const dx = aimX - rightStick.x;
-    const dy = aimY - rightStick.y;
-
-    const dist = Math.hypot(dx, dy);
-
-    if (dist <= rightStick.radius) {
-
-        rightThumbX = aimX;
-        rightThumbY = aimY;
-
-    } else {
-
-        rightThumbX =
-            rightStick.x +
-            (dx / dist) * rightStick.radius;
-
-        rightThumbY =
-            rightStick.y +
-            (dy / dist) * rightStick.radius;
-
-    }
-
-}
-
-    ctx.beginPath();
-    ctx.arc(
-        rightThumbX,
-        rightThumbY,
-        28,
-        0,
-        Math.PI * 2
-    );
-    ctx.fillStyle = "#ff5555";
-    ctx.fill();
-
     requestAnimationFrame(gameLoop);
 
 }
