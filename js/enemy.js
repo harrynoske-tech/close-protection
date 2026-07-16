@@ -27,6 +27,13 @@ class Enemy {
     }
 
     update(target) {
+        const now = Date.now();
+
+if (this.sprayed && now > this.sprayEndTime) {
+
+    this.sprayed = false;
+
+}
         if (
     Math.abs(this.knockbackX) > 0.1 ||
     Math.abs(this.knockbackY) > 0.1
