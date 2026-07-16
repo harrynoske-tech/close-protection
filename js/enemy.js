@@ -24,6 +24,20 @@ class Enemy {
     }
 
     update(target) {
+        if (
+    Math.abs(this.knockbackX) > 0.1 ||
+    Math.abs(this.knockbackY) > 0.1
+) {
+
+    this.x += this.knockbackX;
+    this.y += this.knockbackY;
+
+    this.knockbackX *= 0.85;
+    this.knockbackY *= 0.85;
+
+    return;
+
+}
 
         const dx = target.x - this.x;
         const dy = target.y - this.y;
