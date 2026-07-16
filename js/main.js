@@ -356,7 +356,7 @@ function updateShooting() {
             enemy.y - guard.y
         );
 
-        if (dist < 80) {
+        if (dist < guard.weapon.range) {
 
             enemy.sprayed = true;
             enemy.sprayEndTime = Date.now() + 2000;
