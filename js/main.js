@@ -585,30 +585,6 @@ function drawCrosshair(cameraX) {
 
 }
 
-// Square the value to make the response much softer
-const response = stickPercent * stickPercent;
-
-const distance =
-    response * maxAimDistance;
-
-    crosshairX =
-        guard.x +
-        Math.cos(aimAngle) * distance;
-
-    crosshairY =
-        guard.y +
-        Math.sin(aimAngle) * distance;
-
-    ctx.drawImage(
-        crosshairImage,
-        crosshairX - cameraX - 20,
-        crosshairY - 20,
-        40,
-        40
-    );
-
-}
-
 function drawHUD() {
 
     ctx.fillStyle = "white";
