@@ -550,8 +550,22 @@ function drawCrosshair(cameraX) {
         rightStick.radius
     );
 
- const distance =
-    (stickDistance / rightStick.radius) * maxAimDistance;
+ const deadZone = 12;
+
+const usableDistance = Math.max(
+    0,
+    stickDistance - deadZone
+);
+
+const stickPercent =
+    usableDistance /
+    (rightStick.radius - deadZone);
+
+// Square the value to make the response much softer
+const response = stickPercent * stickPercent;
+
+const distance =
+    response * maxAimDistance;
 
     crosshairX =
         guard.x +
