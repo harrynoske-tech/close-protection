@@ -13,6 +13,8 @@ class Player {
         this.width = 48;
         this.height = 64;
 
+        this.speed = 3;
+
         this.range = 180;
         this.fireRate = 400;
         this.lastShot = 0;
