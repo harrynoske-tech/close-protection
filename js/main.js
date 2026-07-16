@@ -677,121 +677,74 @@ function drawHUD() {
     ctx.fillStyle = "white";
     ctx.font = "18px monospace";
 
-    ctx.fillText(
-        "⭐ Score: " + score,
-        20,
-        30
-    );
+    ctx.fillText("⭐ Score: " + score, 20, 30);
+    ctx.fillText("💰 Cash: $" + cash, 20, 55);
+    ctx.fillText("🌊 Wave: " + wave, 20, 80);
+    ctx.fillText("👥 Enemies: " + enemies.length, 20, 105);
+    ctx.fillText("🔪 " + guard.weapon.toUpperCase(), 20, 130);
 
-    ctx.fillText(
-        "💰 Cash: $" + cash,
-        20,
-        55
-    );
-
-    ctx.fillText(
-        "🌊 Wave: " + wave,
-        20,
-        80
-    );
-
-    ctx.fillText(
-        "👥 Enemies: " + enemies.length,
-        20,
-        105
-    );
-
-    ctx.fillText(
-        "🔪 " + guard.weapon.toUpperCase(),
-        20,
-        130
-    );
-
+    // Countdown
     if (betweenWaves) {
 
-    ctx.textAlign = "center";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "white";
 
-    ctx.fillStyle = "white";
-    ctx.font = "48px Arial";
+        ctx.font = "48px Arial";
+        ctx.fillText(
+            "WAVE " + wave + " COMPLETE",
+            canvas.width / 2,
+            canvas.height / 2 - 40
+        );
 
-    ctx.fillText(
-        "WAVE " + wave + " COMPLETE",
-        canvas.width / 2,
-        canvas.height / 2 - 40
-    );
+        ctx.font = "32px Arial";
+        ctx.fillText(
+            "Next Wave In",
+            canvas.width / 2,
+            canvas.height / 2 + 20
+        );
 
-    ctx.font = "32px Arial";
+        ctx.font = "64px Arial";
+        ctx.fillText(
+            Math.ceil(waveCountdown / 60),
+            canvas.width / 2,
+            canvas.height / 2 + 90
+        );
 
-    ctx.fillText(
-        "Next Wave In",
-        canvas.width / 2,
-        canvas.height / 2 + 20
-    );
+        ctx.textAlign = "left";
+    }
 
-    ctx.font = "64px Arial";
+    // Shop
+    if (shopOpen) {
 
-    ctx.fillText(
-        Math.ceil(waveCountdown / 60),
-        canvas.width / 2,
-        canvas.height / 2 + 90
-    );
+        ctx.fillStyle = "rgba(0,0,0,0.8)";
+        ctx.fillRect(
+            60,
+            80,
+            canvas.width - 120,
+            canvas.height - 160
+        );
 
-    ctx.textAlign = "left";
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
 
-        if (shopOpen) {
+        ctx.font = "40px Arial";
+        ctx.fillText(
+            "UPGRADE SHOP",
+            canvas.width / 2,
+            140
+        );
 
-    ctx.fillStyle = "rgba(0,0,0,0.8)";
-    ctx.fillRect(
-        60,
-        80,
-        canvas.width - 120,
-        canvas.height - 160
-    );
+        ctx.font = "28px Arial";
 
-    ctx.fillStyle = "white";
-    ctx.textAlign = "center";
+        ctx.fillText("1. Fire Rate", canvas.width / 2, 220);
+        ctx.fillText("2. Damage", canvas.width / 2, 270);
+        ctx.fillText("3. Range", canvas.width / 2, 320);
+        ctx.fillText("4. Heal VIP", canvas.width / 2, 370);
 
-    ctx.font = "40px Arial";
-    ctx.fillText(
-        "UPGRADE SHOP",
-        canvas.width / 2,
-        140
-    );
-
-    ctx.font = "28px Arial";
-
-    ctx.fillText(
-        "1. Fire Rate",
-        canvas.width / 2,
-        220
-    );
-
-    ctx.fillText(
-        "2. Damage",
-        canvas.width / 2,
-        270
-    );
-
-    ctx.fillText(
-        "3. Range",
-        canvas.width / 2,
-        320
-    );
-
-    ctx.fillText(
-        "4. Heal VIP",
-        canvas.width / 2,
-        370
-    );
-
-    ctx.textAlign = "left";
-
-       }
-
+        ctx.textAlign = "left";
     }
 
 }
-
 function handleShopClick(x, y) {
 
     for (const button of shopButtons) {
