@@ -114,7 +114,6 @@ const shopButtons = [
     { x: canvas.width / 2 - 170, y: 310, w: 340, h: 55, type: "range" },
     { x: canvas.width / 2 - 170, y: 375, w: 340, h: 55, type: "heal" }
 ];
-];
 
 resize();
 
