@@ -292,7 +292,7 @@ ctx.font = "18px monospace";
 ctx.fillText("⭐ Score: " + score, 20, 30);
 ctx.fillText("💰 Cash: $" + cash, 20, 55);
 ctx.fillText("🌊 Wave: " + wave, 20, 80);
-ctx.fillText("👥 Left: " + enemiesRemaining, 20, 105);
+ctx.fillText("👥 Enemies: " + enemies.length, 20, 105);
 
 ctx.fillText("🔪 " + guard.weapon.toUpperCase(), 20, 130);
 
