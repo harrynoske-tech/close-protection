@@ -125,6 +125,23 @@ function gameLoop() {
     } else {
         enemy.update(vip);
     }
+    for (let i = enemies.length - 1; i >= 0; i--) {
+
+    const enemy = enemies[i];
+
+    if (
+        enemy.x < vip.x - 600 ||
+        enemy.x > vip.x + 600 ||
+        enemy.y < -200 ||
+        enemy.y > canvas.height + 200
+    ) {
+
+        enemies.splice(i, 1);
+        enemies.push(randomEnemy());
+
+    }
+
+}
 
 }
 }
