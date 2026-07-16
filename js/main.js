@@ -861,10 +861,6 @@ function gameLoop() {
 
     }
 
-    // Keep VIP fixed in the centre
-    vip.x = canvas.width / 2;
-vip.y = canvas.height / 2;
-
 // Update game
 if (!betweenWaves && !shopOpen) {
 
