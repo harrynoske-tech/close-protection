@@ -589,7 +589,10 @@ function gameLoop() {
         return;
 
     }
-    
+
+    // Keep VIP fixed in the centre
+    vip.x = canvas.width / 2;
+vip.y = canvas.height / 2;
 
     // Update game
     updateMovement();
