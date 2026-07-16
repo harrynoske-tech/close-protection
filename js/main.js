@@ -10,17 +10,6 @@ window.onerror = function (message, source, line, column, error) {
     );
 };
 
-function resize() {
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-    leftStick.y = canvas.height - 120;
-
-rightStick.x = canvas.width - 120;
-rightStick.y = canvas.height - 120;
-
-}
 
 function resize() {
 
