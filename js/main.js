@@ -752,13 +752,13 @@ if (!betweenWaves) {
     // Camera follows guard
     const cameraX = 0;
 
+    drawMK6Cone();
+    
     // Draw world
     drawRoad();
 
     // Draw players
     drawPlayers(cameraX);
-
-    drawMK6Cone();
 
     // Draw health bars
     drawHealthBars(cameraX);
