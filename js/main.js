@@ -108,19 +108,6 @@ guard.maxHealth = 100;
 // GAME
 // --------------------------------------------------
 
-let score = 0;
-let cash = 0;
-let wave = 1;
-let enemiesRemaining = 3;
-let waveCountdown = 180;
-let betweenWaves = false;
-let shopOpen = false;
-
-const bullets = [];
-const MAX_BULLETS = 40;
-
-const enemies = [];
-
 const shopButtons = [
     { x: canvas.width / 2 - 170, y: 180, w: 340, h: 55, type: "fire" },
     { x: canvas.width / 2 - 170, y: 245, w: 340, h: 55, type: "damage" },
