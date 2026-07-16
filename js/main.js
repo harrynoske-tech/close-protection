@@ -724,6 +724,19 @@ function drawHUD() {
             canvas.height - 160
         );
 
+        ctx.fillStyle = "#444";
+
+for (const button of shopButtons) {
+
+    ctx.fillRect(
+        button.x,
+        button.y,
+        button.w,
+        button.h
+    );
+
+}
+
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
 
