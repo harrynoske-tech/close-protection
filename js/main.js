@@ -2,14 +2,10 @@ document.addEventListener("contextmenu", (e) => e.preventDefault());
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-window.onerror = function (message, source, line, column, error) {
-    alert(
-        message +
-        "\nLine: " + line +
-        "\nColumn: " + column
-    );
-};
 
+// --------------------------------------------------
+// SCREEN
+// --------------------------------------------------
 
 function resize() {
 
@@ -21,40 +17,54 @@ function resize() {
     rightStick.x = canvas.width - 120;
     rightStick.y = canvas.height - 120;
 
-    if (canvas.width < canvas.height) {
-
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "white";
-        ctx.font = "32px Arial";
-        ctx.textAlign = "center";
-
-        ctx.fillText(
-            "Rotate Device",
-            canvas.width / 2,
-            canvas.height / 2
-        );
-
-    }
-
 }
+
 window.addEventListener("resize", resize);
-resize();
+
+// --------------------------------------------------
+// JOYSTICKS
+// --------------------------------------------------
+
+const leftStick = {
+    x: 120,
+    y: 0,
+    radius: 70
+};
+
+const rightStick = {
+    x: 0,
+    y: 0,
+    radius: 70
+};
+
+let moveTouch = null;
+let shootTouch = null;
+
+let moveX = 0;
+let moveY = 0;
+
+let aimX = 0;
+let aimY = 0;
+
+// --------------------------------------------------
+// PLAYERS
+// --------------------------------------------------
 
 const vip = new Player(
     200,
-    canvas.height / 2,
+    window.innerHeight / 2,
     "vip"
 );
+
 vip.health = 100;
 vip.maxHealth = 100;
 
 const guard = new Player(
     140,
-    canvas.height / 2,
+    window.innerHeight / 2,
     "guard"
 );
+
 guard.weapon = "knife";
 guard.damage = 25;
 guard.range = 140;
@@ -63,62 +73,57 @@ guard.fireRate = 700;
 guard.health = 100;
 guard.maxHealth = 100;
 
+// --------------------------------------------------
+// GAME
+// --------------------------------------------------
+
 let score = 0;
+let cash = 0;
 let wave = 1;
 let enemiesRemaining = 3;
-let cash = 0;
+
 const bullets = [];
 const MAX_BULLETS = 40;
+
+const enemies = [];
+
+resize();
 
 function randomEnemy() {
 
     const side = Math.floor(Math.random() * 4);
 
     if (side === 0)
-    return new Enemy(vip.x + 700, Math.random() * canvas.height);
+        return new Enemy(
+            vip.x + 700,
+            Math.random() * canvas.height
+        );
 
     if (side === 1)
-    return new Enemy(vip.x - 700, Math.random() * canvas.height);
+        return new Enemy(
+            vip.x - 700,
+            Math.random() * canvas.height
+        );
 
     if (side === 2)
         return new Enemy(
-            vip.x + (Math.random() * 300 - 150),
+            vip.x + (Math.random() * 400 - 200),
             50
         );
 
     return new Enemy(
-        vip.x + (Math.random() * 300 - 150),
+        vip.x + (Math.random() * 400 - 200),
         canvas.height - 50
     );
 
 }
 
-let enemies = [];
-
 for (let i = 0; i < 3; i++) {
     enemies.push(randomEnemy());
 }
-
-// Left joystick
-let moveTouch = null;
-let moveX = 0;
-let moveY = 0;
-
-// Right joystick
-let shootTouch = null;
-let aimX = 0;
-let aimY = 0;
-const leftStick = {
-    x: 120,
-    y: canvas.height - 120,
-    radius: 70
-};
-
-const rightStick = {
-    x: canvas.width - 120,
-    y: canvas.height - 120,
-    radius: 70
-};
+// --------------------------------------------------
+// INPUT
+// --------------------------------------------------
 
 canvas.addEventListener("pointerdown", (e) => {
 
@@ -127,14 +132,12 @@ canvas.addEventListener("pointerdown", (e) => {
     if (e.clientX < canvas.width / 2) {
 
         moveTouch = e.pointerId;
-
         moveX = e.clientX;
         moveY = e.clientY;
 
     } else {
 
         shootTouch = e.pointerId;
-
         aimX = e.clientX;
         aimY = e.clientY;
 
@@ -163,265 +166,519 @@ canvas.addEventListener("pointermove", (e) => {
 canvas.addEventListener("pointerup", (e) => {
 
     if (e.pointerId === moveTouch) {
-
         moveTouch = null;
-
     }
 
     if (e.pointerId === shootTouch) {
-
         shootTouch = null;
-
     }
 
 });
 
-function drawRoad(offset) {
+// --------------------------------------------------
+// WORLD
+// --------------------------------------------------
+
+function drawRoad(cameraX) {
 
     ctx.fillStyle = "#2e8b57";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#555";
-    ctx.fillRect(0, canvas.height / 2 - 50, canvas.width, 100);
+    ctx.fillRect(
+        0,
+        canvas.height / 2 - 120,
+        canvas.width,
+        240
+    );
 
     ctx.fillStyle = "white";
 
     for (let i = -80; i < canvas.width + 80; i += 80) {
-        ctx.fillRect(i - (offset % 80), canvas.height / 2 - 3, 40, 6);
+
+        ctx.fillRect(
+            i - (cameraX % 80),
+            canvas.height / 2 - 3,
+            40,
+            6
+        );
+
     }
 
 }
 
-function gameLoop() {
-    
-    if (canvas.width < canvas.height) {
-    requestAnimationFrame(gameLoop);
-    return;
+// --------------------------------------------------
+// MOVEMENT
+// --------------------------------------------------
+
+function updateMovement() {
+
+    if (moveTouch !== null) {
+
+        const dx = moveX - leftStick.x;
+        const dy = moveY - leftStick.y;
+
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > 10) {
+
+            const nx = dx / dist;
+            const ny = dy / dist;
+
+            guard.x += nx * 5;
+            guard.y += ny * 5;
+
+        }
+
+    }
+
+    const followX = guard.x - 60;
+    const followY = guard.y;
+
+    vip.x += (followX - vip.x) * 0.08;
+    vip.y += (followY - vip.y) * 0.08;
+
+}
+// --------------------------------------------------
+// ENEMIES
+// --------------------------------------------------
+
+function updateEnemies() {
+
+    for (const enemy of enemies) {
+
+        enemy.update({
+            x: vip.x + 100,
+            y: vip.y
+        });
+
+    }
+
 }
 
+function getClosestEnemy() {
 
-// Update enemies
-for (const enemy of enemies) {
+    let closestEnemy = null;
+    let closestDistance = Infinity;
 
-    enemy.update({
-        x: vip.x + 100,
-        y: vip.y
-    });
+    for (const enemy of enemies) {
+
+        const d = Math.hypot(
+            enemy.x - guard.x,
+            enemy.y - guard.y
+        );
+
+        if (d < closestDistance) {
+
+            closestDistance = d;
+            closestEnemy = enemy;
+
+        }
+
+    }
+
+    return closestEnemy;
 
 }
 
-// Respawn enemies that wander too far away
+// --------------------------------------------------
+// SHOOTING
+// --------------------------------------------------
+
+function updateShooting() {
+
+    const enemy = getClosestEnemy();
+
+    if (!enemy) return;
 
     const now = Date.now();
 
-let closestEnemy = null;
-let closestDistance = Infinity;
+    if (
+        Math.hypot(
+            enemy.x - guard.x,
+            enemy.y - guard.y
+        ) < guard.range &&
+        now - guard.lastShot > guard.fireRate
+    ) {
 
-for (const enemy of enemies) {
+        if (bullets.length < MAX_BULLETS) {
 
-    const d = Math.hypot(enemy.x - guard.x, enemy.y - guard.y);
+            bullets.push(
+                new Bullet(
+                    guard.x,
+                    guard.y,
+                    enemy.x,
+                    enemy.y
+                )
+            );
 
-    if (d < closestDistance) {
-        closestDistance = d;
-        closestEnemy = enemy;
+        }
+
+        guard.lastShot = now;
+
     }
 
 }
 
-if (
-    closestEnemy &&
-    Math.hypot(
-        closestEnemy.x - guard.x,
-        closestEnemy.y - guard.y
-    ) < guard.range &&
-    now - guard.lastShot > guard.fireRate
-) {
+// --------------------------------------------------
+// BULLETS
+// --------------------------------------------------
 
-  if (bullets.length < MAX_BULLETS) {
+function updateBullets(cameraX) {
 
-    bullets.push(
-        new Bullet(
-            guard.x,
-            guard.y,
-            closestEnemy.x,
-            closestEnemy.y
-        )
+    for (const bullet of bullets) {
+
+        bullet.update();
+        bullet.draw(ctx, cameraX);
+
+    }
+
+}
+// --------------------------------------------------
+// COLLISIONS
+// --------------------------------------------------
+
+function updateCollisions() {
+
+    for (const bullet of bullets) {
+
+        if (bullet.dead) continue;
+
+        for (let i = enemies.length - 1; i >= 0; i--) {
+
+            const enemy = enemies[i];
+
+            if (
+                Math.hypot(
+                    bullet.x - enemy.x,
+                    bullet.y - enemy.y
+                ) < 14
+            ) {
+
+                bullet.dead = true;
+
+                enemy.health -= guard.damage;
+
+                if (enemy.health > 0) {
+                    break;
+                }
+
+                // Enemy defeated
+                score += 10;
+                cash += 50;
+                enemiesRemaining--;
+
+                enemies.splice(i, 1);
+
+                if (enemiesRemaining <= 0) {
+
+                    wave++;
+
+                    enemiesRemaining = wave * 3;
+
+                    for (let j = 0; j < enemiesRemaining; j++) {
+                        enemies.push(randomEnemy());
+                    }
+
+                } else {
+
+                    enemies.push(randomEnemy());
+
+                }
+
+                break;
+
+            }
+
+        }
+
+    }
+
+    // Remove dead bullets
+    for (let i = bullets.length - 1; i >= 0; i--) {
+
+        if (bullets[i].dead) {
+            bullets.splice(i, 1);
+        }
+
+    }
+
+}
+
+// --------------------------------------------------
+// VIP DAMAGE
+// --------------------------------------------------
+
+function updateVIPDamage() {
+
+    for (const enemy of enemies) {
+
+        if (
+            Math.hypot(
+                enemy.x - vip.x,
+                enemy.y - vip.y
+            ) < 20
+        ) {
+
+            vip.health -= 25;
+
+            enemies.splice(
+                enemies.indexOf(enemy),
+                1
+            );
+
+            enemies.push(randomEnemy());
+
+            if (vip.health <= 0) {
+
+                alert(
+                    "VIP DOWN!\nScore: " +
+                    score
+                );
+
+                location.reload();
+
+                return;
+
+            }
+
+        }
+
+    }
+
+}
+// --------------------------------------------------
+// DRAWING
+// --------------------------------------------------
+
+function drawPlayers(cameraX) {
+
+    vip.draw(ctx, cameraX);
+    guard.draw(ctx, cameraX);
+
+}
+
+function drawEnemies(cameraX) {
+
+    for (const enemy of enemies) {
+        enemy.draw(ctx, cameraX);
+    }
+
+}
+
+function drawHealthBars(cameraX) {
+
+    // VIP
+    ctx.fillStyle = "red";
+    ctx.fillRect(
+        vip.x - cameraX - 25,
+        vip.y - 45,
+        50,
+        6
+    );
+
+    ctx.fillStyle = "lime";
+    ctx.fillRect(
+        vip.x - cameraX - 25,
+        vip.y - 45,
+        50 * (vip.health / vip.maxHealth),
+        6
+    );
+
+    // Guard
+    ctx.fillStyle = "red";
+    ctx.fillRect(
+        guard.x - cameraX - 25,
+        guard.y - 45,
+        50,
+        6
+    );
+
+    ctx.fillStyle = "deepskyblue";
+    ctx.fillRect(
+        guard.x - cameraX - 25,
+        guard.y - 45,
+        50 * (guard.health / guard.maxHealth),
+        6
     );
 
 }
 
-    guard.lastShot = now;
+function drawHUD() {
+
+    ctx.fillStyle = "white";
+    ctx.font = "18px monospace";
+
+    ctx.fillText(
+        "⭐ Score: " + score,
+        20,
+        30
+    );
+
+    ctx.fillText(
+        "💰 Cash: $" + cash,
+        20,
+        55
+    );
+
+    ctx.fillText(
+        "🌊 Wave: " + wave,
+        20,
+        80
+    );
+
+    ctx.fillText(
+        "👥 Enemies: " + enemies.length,
+        20,
+        105
+    );
+
+    ctx.fillText(
+        "🔪 " + guard.weapon.toUpperCase(),
+        20,
+        130
+    );
 
 }
+// --------------------------------------------------
+// GAME LOOP
+// --------------------------------------------------
 
-// Move with left joystick
-if (moveTouch !== null) {
+function gameLoop() {
 
-    const dx = moveX - leftStick.x;
-    const dy = moveY - leftStick.y;
+    if (canvas.width < canvas.height) {
 
-    const dist = Math.hypot(dx, dy);
+        ctx.fillStyle = "black";
+        ctx.fillRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
 
-    if (dist > 10) {
+        ctx.fillStyle = "white";
+        ctx.font = "32px Arial";
+        ctx.textAlign = "center";
 
-        const max = leftStick.radius;
+        ctx.fillText(
+            "Rotate Device",
+            canvas.width / 2,
+            canvas.height / 2
+        );
 
-        const nx = dx / Math.max(dist, max);
-        const ny = dy / Math.max(dist, max);
-
-        guard.x += nx * 5;
-        guard.y += ny * 5;
+        requestAnimationFrame(gameLoop);
+        return;
 
     }
 
-}
+    // Update game
+    updateMovement();
+    updateEnemies();
+    updateShooting();
 
+    // Camera follows guard
+    const cameraX =
+        guard.x - canvas.width / 2;
 
-// VIP follows the bodyguard
-const followX = guard.x - 60;
-const followY = guard.y;
-
-vip.x += (followX - vip.x) * 0.05;
-vip.y += (followY - vip.y) * 0.05;
-
-    const cameraX = guard.x - canvas.width / 2;
-
+    // Draw world
     drawRoad(cameraX);
 
-    vip.draw(ctx, cameraX);
-    // VIP Health Bar
-ctx.fillStyle = "red";
-ctx.fillRect(
-    vip.x - cameraX - 25,
-    vip.y - 45,
-    50,
-    6
-);
+    // Draw players
+    drawPlayers(cameraX);
 
-ctx.fillStyle = "lime";
-ctx.fillRect(
-    vip.x - cameraX - 25,
-    vip.y - 45,
-    50 * (vip.health / vip.maxHealth),
-    6
-);
-    guard.draw(ctx, cameraX);
-    for (const enemy of enemies) {
-    enemy.draw(ctx, cameraX);
-}
-    for (const bullet of bullets) {
+    // Draw health bars
+    drawHealthBars(cameraX);
 
-    bullet.update();
-    bullet.draw(ctx, cameraX);
+    // Draw enemies
+    drawEnemies(cameraX);
 
-}
-for (const bullet of bullets) {
+    // Bullets
+    updateBullets(cameraX);
 
-    for (let i = enemies.length - 1; i >= 0; i--) {
+    // Combat
+    updateCollisions();
 
-        const enemy = enemies[i];
+    // VIP
+    updateVIPDamage();
 
-        if (
-            Math.hypot(
-                bullet.x - enemy.x,
-                bullet.y - enemy.y
-            ) < 14
-        ) {
+    // HUD
+    drawHUD();
+    
+        // --------------------------------------------------
+    // JOYSTICKS
+    // --------------------------------------------------
 
-            bullet.dead = true;
-            enemy.health = (enemy.health || 100) - guard.damage;
+    ctx.globalAlpha = 0.30;
 
-if (enemy.health > 0) {
-    bullet.dead = true;
-    break;
-}
+    // Left joystick base
+    ctx.beginPath();
+    ctx.arc(
+        leftStick.x,
+        leftStick.y,
+        leftStick.radius,
+        0,
+        Math.PI * 2
+    );
+    ctx.fillStyle = "white";
+    ctx.fill();
 
-// Rewards
-score += 10;
-cash += 50;
-enemiesRemaining--;
+    // Right joystick base
+    ctx.beginPath();
+    ctx.arc(
+        rightStick.x,
+        rightStick.y,
+        rightStick.radius,
+        0,
+        Math.PI * 2
+    );
+    ctx.fill();
 
-// Remove attacker
-enemies.splice(i, 1);
+    ctx.globalAlpha = 1;
 
-// Wave finished?
-if (enemiesRemaining <= 0) {
+    // Left thumb
+    const leftThumbX =
+        moveTouch === null
+            ? leftStick.x
+            : moveX;
 
-    wave++;
+    const leftThumbY =
+        moveTouch === null
+            ? leftStick.y
+            : moveY;
 
-    enemiesRemaining = wave * 3;
+    ctx.beginPath();
+    ctx.arc(
+        leftThumbX,
+        leftThumbY,
+        28,
+        0,
+        Math.PI * 2
+    );
+    ctx.fillStyle = "#4da6ff";
+    ctx.fill();
 
-    for (let j = 0; j < enemiesRemaining; j++) {
-        enemies.push(randomEnemy());
-    }
+    // Right thumb
+    const rightThumbX =
+        shootTouch === null
+            ? rightStick.x
+            : aimX;
 
-} else {
+    const rightThumbY =
+        shootTouch === null
+            ? rightStick.y
+            : aimY;
 
-    enemies.push(randomEnemy());
+    ctx.beginPath();
+    ctx.arc(
+        rightThumbX,
+        rightThumbY,
+        28,
+        0,
+        Math.PI * 2
+    );
+    ctx.fillStyle = "#ff5555";
+    ctx.fill();
 
-}
-
-break;
-
-        }
-
-    }
-
-}
-
-for (let i = bullets.length - 1; i >= 0; i--) {
-
-    if (bullets[i].dead) {
-
-        bullets.splice(i, 1);
-
-    }
-
-}
-
-    // Score
-ctx.fillStyle = "white";
-ctx.font = "18px monospace";
-
-ctx.fillText("⭐ Score: " + score, 20, 30);
-ctx.fillText("💰 Cash: $" + cash, 20, 55);
-ctx.fillText("🌊 Wave: " + wave, 20, 80);
-ctx.fillText("👥 Enemies: " + enemies.length, 20, 105);
-
-ctx.fillText("🔪 " + guard.weapon.toUpperCase(), 20, 130);
-
-
-
-// VIP hit
-for (const enemy of enemies) {
-
-    if (Math.hypot(enemy.x - vip.x, enemy.y - vip.y) < 18) {
-
-        vip.health -= 25;
-
-        enemies.splice(enemies.indexOf(enemy), 1);
-        enemies.push(randomEnemy());
-
-        if (vip.health <= 0) {
-
-            alert("VIP DOWN!\nScore: " + score);
-            location.reload();
-            return;
-
-        }
-
-    }
-
-}
-// Auto upgrade to pistol
-if (cash >= 500 && guard.weapon === "knife") {
-
-    guard.weapon = "pistol";
-    guard.damage = 100;
-    guard.range = 220;
-    guard.fireRate = 350;
-
-}
     requestAnimationFrame(gameLoop);
 
 }
