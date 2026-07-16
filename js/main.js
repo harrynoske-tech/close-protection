@@ -32,7 +32,7 @@ const guard = new Player(
 );
 guard.weapon = "knife";
 guard.damage = 25;
-guard.range = 120;
+guard.range = 140;
 guard.fireRate = 700;
 
 guard.health = 100;
