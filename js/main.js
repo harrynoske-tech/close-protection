@@ -14,6 +14,13 @@ function resize() {
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    
+    leftStick.y = canvas.height - 120;
+
+rightStick.x = canvas.width - 120;
+rightStick.y = canvas.height - 120;
+
+}
 
     if (canvas.width < canvas.height) {
 
@@ -102,6 +109,17 @@ let moveY = 0;
 let shootTouch = null;
 let aimX = 0;
 let aimY = 0;
+const leftStick = {
+    x: 120,
+    y: canvas.height - 120,
+    radius: 70
+};
+
+const rightStick = {
+    x: canvas.width - 120,
+    y: canvas.height - 120,
+    radius: 70
+};
 
 canvas.addEventListener("pointerdown", (e) => {
     e.preventDefault();
