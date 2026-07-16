@@ -37,30 +37,11 @@ const leftStick = {
     radius: 70
 };
 
-const rightStick = {
-    x: 0,
-    y: 0,
-    radius: 70
-};
 
 window.addEventListener("resize", resize);
 resize();
 
 let moveTouch = null;
-let shootTouch = null;
-
-let moveX = 0;
-let moveY = 0;
-
-let aimX = 0;
-let aimY = 0;
-let aimAngle = 0;
-let aiming = true;
-
-let crosshairX = canvas.width / 2;
-let crosshairY = canvas.height / 2;
-
-const crosshairSpeed = 8;
 
 // --------------------------------------------------
 // PLAYERS
