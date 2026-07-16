@@ -446,19 +446,13 @@ function updateVIP() {
 
     const now = Date.now();
 
-    // Pick a new destination every 3-6 seconds
+    // Pick a random point anywhere on the map
     if (now > vip.nextMove) {
 
-        vip.targetX =
-            canvas.width / 2 +
-            (Math.random() - 0.5) * 300;
+        vip.targetX = Math.random() * canvas.width;
+        vip.targetY = Math.random() * canvas.height;
 
-        vip.targetY =
-            canvas.height / 2 +
-            (Math.random() - 0.5) * 180;
-
-        vip.nextMove =
-            now + 3000 + Math.random() * 3000;
+        vip.nextMove = now + 4000 + Math.random() * 4000;
 
     }
 
@@ -467,7 +461,7 @@ function updateVIP() {
 
     const dist = Math.hypot(dx, dy);
 
-    if (dist > 2) {
+    if (dist > 5) {
 
         vip.x += (dx / dist) * vip.walkSpeed;
         vip.y += (dy / dist) * vip.walkSpeed;
