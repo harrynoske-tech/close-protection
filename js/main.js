@@ -25,7 +25,7 @@ const guard = new Player(
 );
 guard.weapon = "knife";
 guard.damage = 25;
-guard.range = 50;
+guard.range = 120;
 guard.fireRate = 700;
 
 let score = 0;
