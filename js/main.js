@@ -126,8 +126,6 @@ for (const enemy of enemies) {
 
 // Respawn enemies that wander too far away
 
-
-}
     const now = Date.now();
 
 let closestEnemy = null;
