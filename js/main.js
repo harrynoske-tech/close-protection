@@ -305,7 +305,15 @@ for (const enemy of enemies) {
     }
 
 }
+// Auto upgrade to pistol
+if (cash >= 500 && guard.weapon === "knife") {
 
+    guard.weapon = "pistol";
+    guard.damage = 100;
+    guard.range = 220;
+    guard.fireRate = 350;
+
+}
     requestAnimationFrame(gameLoop);
 
 }
