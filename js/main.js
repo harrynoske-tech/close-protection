@@ -686,3 +686,8 @@ function gameLoop() {
 }
 
 gameLoop();
+if ("serviceWorker" in navigator) {
+
+    navigator.serviceWorker.register("sw.js");
+
+}
