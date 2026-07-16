@@ -234,12 +234,6 @@ function updateMovement() {
 
     }
 
-    const followX = guard.x - 60;
-    const followY = guard.y;
-
-    vip.x += (followX - vip.x) * 0.08;
-    vip.y += (followY - vip.y) * 0.08;
-
 }
 // --------------------------------------------------
 // ENEMIES
@@ -572,6 +566,8 @@ function gameLoop() {
         return;
 
     }
+    
+    vip.x += 2;
 
     // Update game
     updateMovement();
@@ -579,8 +575,7 @@ function gameLoop() {
     updateShooting();
 
     // Camera follows guard
-    const cameraX =
-        guard.x - canvas.width / 2;
+    const cameraX = vip.x - canvas.width / 2;
 
     // Draw world
     drawRoad(cameraX);
