@@ -4,8 +4,8 @@ offenderImage.src = "assets/sprites/offender.png";
 class Enemy {
 
     constructor(x, y) {
-        this.speed = 1.6;
-        this.width = 48;
+        this.speed = 2;
+        this.width = 52;
         this.height = 64;
         this.health = 100;
 
@@ -24,7 +24,7 @@ class Enemy {
 
         const dist = Math.hypot(dx, dy);
 
-        if (dist > 1) {
+        if (dist > 18) {
             this.x += (dx / dist) * this.speed;
             this.y += (dy / dist) * this.speed;
         }
