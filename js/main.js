@@ -447,33 +447,31 @@ function updateCollisions() {
 
 function updateVIPDamage() {
 
+    const now = Date.now();
+
     for (const enemy of enemies) {
 
+        const dist = Math.hypot(
+            enemy.x - vip.x,
+            enemy.y - vip.y
+        );
+
         if (
-            Math.hypot(
-                enemy.x - vip.x,
-                enemy.y - vip.y
-            ) < 20
+            dist < 20 &&
+            now - enemy.lastAttack > enemy.attackRate
         ) {
 
-            vip.health -= 25;
+            enemy.lastAttack = now;
 
-            enemies.splice(
-                enemies.indexOf(enemy),
-                1
-            );
-
-            enemies.push(randomEnemy());
+            vip.health -= 10;
 
             if (vip.health <= 0) {
 
                 alert(
-                    "VIP DOWN!\nScore: " +
-                    score
+                    "VIP DOWN!\nScore: " + score
                 );
 
                 location.reload();
-
                 return;
 
             }
