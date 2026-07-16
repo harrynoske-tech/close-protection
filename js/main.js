@@ -43,7 +43,7 @@ function randomEnemy() {
         return new Enemy(vip.x + 250, Math.random() * canvas.height);
 
     if (side === 1)
-        return new Enemy(vip.x - 250, Math.random() * canvas.height);
+    return new Enemy(vip.x - 450, Math.random() * canvas.height);
 
     if (side === 2)
         return new Enemy(
