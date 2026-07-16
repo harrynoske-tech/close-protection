@@ -13,7 +13,8 @@ function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    leftStick.y = canvas.height - 120;
+    leftStick.x = canvas.width - 120;
+leftStick.y = canvas.height - 120;
 
     maxAimDistance = Math.max(
         canvas.width,
@@ -28,8 +29,8 @@ function resize() {
 // --------------------------------------------------
 
 const leftStick = {
-    x: 120,
-    y: 0,
+    x: canvas.width - 120,
+    y: canvas.height - 120,
     radius: 70
 };
 
