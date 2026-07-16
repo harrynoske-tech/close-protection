@@ -121,6 +121,13 @@ const MAX_BULLETS = 40;
 
 const enemies = [];
 
+const shopButtons = [
+    { x: 120, y: 180, w: 220, h: 70, type: "fire" },
+    { x: 380, y: 180, w: 220, h: 70, type: "damage" },
+    { x: 120, y: 280, w: 220, h: 70, type: "range" },
+    { x: 380, y: 280, w: 220, h: 70, type: "heal" }
+];
+
 resize();
 
 function randomEnemy() {
