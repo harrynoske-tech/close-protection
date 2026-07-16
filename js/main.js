@@ -82,9 +82,9 @@ const guard = new Player(
 );
 
 guard.weapon = "knife";
-guard.damage = 25;
+guard.damage = 90;
 guard.range = 140;
-guard.fireRate = 700;
+guard.fireRate = 250;
 
 guard.health = 100;
 guard.maxHealth = 100;
