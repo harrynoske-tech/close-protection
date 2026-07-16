@@ -52,8 +52,11 @@ let aimX = 0;
 let aimY = 0;
 let aimAngle = 0;
 let aiming = false;
+
 let crosshairX = 0;
 let crosshairY = 0;
+
+let maxAimDistance = 0;
 
 // --------------------------------------------------
 // PLAYERS
