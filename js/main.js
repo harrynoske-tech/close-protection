@@ -15,9 +15,6 @@ function resize() {
 
     leftStick.y = canvas.height - 120;
 
-    rightStick.x = canvas.width - 120;
-    rightStick.y = canvas.height - 120;
-
     maxAimDistance = Math.max(
         canvas.width,
         canvas.height
