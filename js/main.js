@@ -119,7 +119,6 @@ function gameLoop() {
     vip.x += 2;
 
     // Update enemies
-// Update enemies
 for (const enemy of enemies) {
     enemy.update(vip);
 }
