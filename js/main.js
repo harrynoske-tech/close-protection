@@ -374,13 +374,15 @@ function updateShooting() {
 
         const angleDiff = Math.abs(angleToEnemy - guardAngle);
 
-        if (
+               if (
             dist < guard.weapon.range &&
             angleDiff < 0.6
         ) {
             enemy.sprayed = true;
             enemy.sprayEndTime = Date.now() + 2000;
         }
+
+    }
 
 }
     function drawMK6Cone() {
