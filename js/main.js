@@ -270,8 +270,6 @@ function getClosestEnemy() {
 
 function updateShooting() {
 
-    if (!aiming) return;
-
     const now = Date.now();
 
     if (now - guard.lastShot < guard.fireRate)
