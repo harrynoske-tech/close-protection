@@ -827,6 +827,14 @@ function handleShopClick(x, y) {
 
             shopOpen = false;
             betweenWaves = false;
+            
+            wave++;
+
+const enemyCount = wave + 2;
+
+for (let i = 0; i < enemyCount; i++) {
+    enemies.push(randomEnemy());
+}
 
 
             return;
