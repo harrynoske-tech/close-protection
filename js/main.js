@@ -28,6 +28,9 @@ guard.damage = 25;
 guard.range = 120;
 guard.fireRate = 700;
 
+guard.health = 100;
+guard.maxHealth = 100;
+
 let score = 0;
 let wave = 1;
 let enemiesRemaining = 3;
