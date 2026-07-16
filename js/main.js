@@ -85,6 +85,10 @@ const vip = new Player(
     canvas.height / 2,
     "vip"
 );
+vip.targetX = vip.x;
+vip.targetY = vip.y;
+vip.walkSpeed = 1;
+vip.nextMove = Date.now();
 
 vip.health = 100;
 vip.maxHealth = 100;
@@ -433,6 +437,40 @@ function updateBullets(cameraX) {
 
         bullet.update();
         bullet.draw(ctx, cameraX);
+
+    }
+
+}
+
+function updateVIP() {
+
+    const now = Date.now();
+
+    // Pick a new destination every 3-6 seconds
+    if (now > vip.nextMove) {
+
+        vip.targetX =
+            canvas.width / 2 +
+            (Math.random() - 0.5) * 300;
+
+        vip.targetY =
+            canvas.height / 2 +
+            (Math.random() - 0.5) * 180;
+
+        vip.nextMove =
+            now + 3000 + Math.random() * 3000;
+
+    }
+
+    const dx = vip.targetX - vip.x;
+    const dy = vip.targetY - vip.y;
+
+    const dist = Math.hypot(dx, dy);
+
+    if (dist > 2) {
+
+        vip.x += (dx / dist) * vip.walkSpeed;
+        vip.y += (dy / dist) * vip.walkSpeed;
 
     }
 
@@ -837,6 +875,7 @@ vip.y = canvas.height / 2;
 if (!betweenWaves && !shopOpen) {
 
  updateMovement();
+    updateVIP();
 updateEnemies();
 separateEnemies();
 updateBodyChecks();
