@@ -196,34 +196,6 @@ canvas.addEventListener("pointerup", (e) => {
 
     }
 
-    canvas.addEventListener("click", (e) => {
-
-    if (!shopOpen) return;
-
-    const x = e.clientX;
-    const y = e.clientY;
-
-    // Fire Rate
-    if (y > 190 && y < 240) {
-
-        guard.fireRate = Math.max(
-            80,
-            guard.fireRate - 25
-        );
-
-        shopOpen = false;
-        betweenWaves = false;
-
-        wave++;
-
-        const enemyCount = wave + 2;
-
-        for (let i = 0; i < enemyCount; i++) {
-            enemies.push(randomEnemy());
-        }
-
-    }
-
 });
 
 // --------------------------------------------------
