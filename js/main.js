@@ -112,7 +112,7 @@ let score = 0;
 let cash = 0;
 let wave = 1;
 let enemiesRemaining = 3;
-let waveCountdown = 0;
+let waveCountdown = 180;
 let betweenWaves = false;
 let shopOpen = false;
 
@@ -493,7 +493,8 @@ if (
 ) {
 
     betweenWaves = true;
-    shopOpen = true;
+shopOpen = false;
+waveCountdown = 180;
 
 }
 
@@ -895,10 +896,11 @@ updateShooting();
 
     if (waveCountdown <= 0) {
 
-        betweenWaves = false;
-        shopOpen = true;
+    betweenWaves = false;
+    shopOpen = true;
+    waveCountdown = 180;
 
-    }
+}
 
 }
 
