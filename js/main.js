@@ -571,11 +571,35 @@ function gameLoop() {
     vip.x = canvas.width / 2;
 vip.y = canvas.height / 2;
 
-    // Update game
+// Update game
+if (!betweenWaves) {
+
     updateMovement();
     updateEnemies();
     updateBodyChecks();
     updateShooting();
+
+} else {
+
+    waveCountdown--;
+
+    if (waveCountdown <= 0) {
+
+        betweenWaves = false;
+
+        wave++;
+
+        const enemyCount = wave + 2;
+
+        for (let i = 0; i < enemyCount; i++) {
+
+            enemies.push(randomEnemy());
+
+        }
+
+    }
+
+}
 
     // Camera follows guard
     const cameraX = 0;
