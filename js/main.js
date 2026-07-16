@@ -881,23 +881,14 @@ updateBodyChecks();
 updateShooting();
     updateMK6();
 
-} else {
+} else if (betweenWaves) {
 
     waveCountdown--;
 
     if (waveCountdown <= 0) {
 
         betweenWaves = false;
-
-        wave++;
-
-        const enemyCount = wave + 2;
-
-        for (let i = 0; i < enemyCount; i++) {
-
-            enemies.push(randomEnemy());
-
-        }
+        shopOpen = true;
 
     }
 
