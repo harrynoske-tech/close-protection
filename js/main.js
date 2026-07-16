@@ -722,15 +722,34 @@ vip.y = canvas.height / 2;
     ctx.globalAlpha = 1;
 
     // Left thumb
-    const leftThumbX =
-        moveTouch === null
-            ? leftStick.x
-            : moveX;
+let leftThumbX = leftStick.x;
+let leftThumbY = leftStick.y;
 
-    const leftThumbY =
-        moveTouch === null
-            ? leftStick.y
-            : moveY;
+if (moveTouch !== null) {
+
+    const dx = moveX - leftStick.x;
+    const dy = moveY - leftStick.y;
+
+    const dist = Math.hypot(dx, dy);
+
+    if (dist <= leftStick.radius) {
+
+        leftThumbX = moveX;
+        leftThumbY = moveY;
+
+    } else {
+
+        leftThumbX =
+            leftStick.x +
+            (dx / dist) * leftStick.radius;
+
+        leftThumbY =
+            leftStick.y +
+            (dy / dist) * leftStick.radius;
+
+    }
+
+}
 
     ctx.beginPath();
     ctx.arc(
@@ -744,15 +763,34 @@ vip.y = canvas.height / 2;
     ctx.fill();
 
     // Right thumb
-    const rightThumbX =
-        shootTouch === null
-            ? rightStick.x
-            : aimX;
+let rightThumbX = rightStick.x;
+let rightThumbY = rightStick.y;
 
-    const rightThumbY =
-        shootTouch === null
-            ? rightStick.y
-            : aimY;
+if (shootTouch !== null) {
+
+    const dx = aimX - rightStick.x;
+    const dy = aimY - rightStick.y;
+
+    const dist = Math.hypot(dx, dy);
+
+    if (dist <= rightStick.radius) {
+
+        rightThumbX = aimX;
+        rightThumbY = aimY;
+
+    } else {
+
+        rightThumbX =
+            rightStick.x +
+            (dx / dist) * rightStick.radius;
+
+        rightThumbY =
+            rightStick.y +
+            (dy / dist) * rightStick.radius;
+
+    }
+
+}
 
     ctx.beginPath();
     ctx.arc(
