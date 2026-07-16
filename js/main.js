@@ -23,6 +23,10 @@ const guard = new Player(
     canvas.height / 2,
     "guard"
 );
+guard.weapon = "knife";
+guard.damage = 25;
+guard.range = 50;
+guard.fireRate = 700;
 
 let score = 0;
 let wave = 1;
