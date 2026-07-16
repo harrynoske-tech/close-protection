@@ -43,6 +43,42 @@ let moveTouch = null;
 // PLAYERS
 // --------------------------------------------------
 
+const WEAPONS = {
+
+    MK6: {
+        name: "MK6",
+        damage: 0,
+        fireRate: 500,
+        range: 60,
+        bulletSpeed: 0
+    },
+
+    PISTOL: {
+        name: "Pistol",
+        damage: 100,
+        fireRate: 250,
+        range: 280,
+        bulletSpeed: 12
+    },
+
+    MCX: {
+        name: "MCX",
+        damage: 50,
+        fireRate: 120,
+        range: 360,
+        bulletSpeed: 16
+    },
+
+    FIFTY_CAL: {
+        name: ".50 CAL",
+        damage: 300,
+        fireRate: 800,
+        range: 600,
+        bulletSpeed: 20
+    }
+
+};
+
 const vip = new Player(
     canvas.width / 2,
     canvas.height / 2,
