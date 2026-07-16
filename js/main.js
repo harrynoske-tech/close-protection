@@ -103,28 +103,37 @@ function randomEnemy() {
 
     const side = Math.floor(Math.random() * 4);
 
-    if (side === 0)
-        return new Enemy(
-            vip.x + 700,
-            Math.random() * canvas.height
-        );
+    switch (side) {
 
-    if (side === 1)
-        return new Enemy(
-            vip.x - 700,
-            Math.random() * canvas.height
-        );
+        // Left
+        case 0:
+            return new Enemy(
+                -80,
+                Math.random() * canvas.height
+            );
 
-    if (side === 2)
-        return new Enemy(
-            vip.x + (Math.random() * 400 - 200),
-            50
-        );
+        // Right
+        case 1:
+            return new Enemy(
+                canvas.width + 80,
+                Math.random() * canvas.height
+            );
 
-    return new Enemy(
-        vip.x + (Math.random() * 400 - 200),
-        canvas.height - 50
-    );
+        // Top
+        case 2:
+            return new Enemy(
+                Math.random() * canvas.width,
+                -80
+            );
+
+        // Bottom
+        default:
+            return new Enemy(
+                Math.random() * canvas.width,
+                canvas.height + 80
+            );
+
+    }
 
 }
 
