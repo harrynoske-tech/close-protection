@@ -535,6 +535,39 @@ function drawHUD() {
         130
     );
 
+    if (betweenWaves) {
+
+    ctx.textAlign = "center";
+
+    ctx.fillStyle = "white";
+    ctx.font = "48px Arial";
+
+    ctx.fillText(
+        "WAVE " + wave + " COMPLETE",
+        canvas.width / 2,
+        canvas.height / 2 - 40
+    );
+
+    ctx.font = "32px Arial";
+
+    ctx.fillText(
+        "Next Wave In",
+        canvas.width / 2,
+        canvas.height / 2 + 20
+    );
+
+    ctx.font = "64px Arial";
+
+    ctx.fillText(
+        Math.ceil(waveCountdown / 60),
+        canvas.width / 2,
+        canvas.height / 2 + 90
+    );
+
+    ctx.textAlign = "left";
+
+}
+
 }
 // --------------------------------------------------
 // GAME LOOP
