@@ -290,10 +290,10 @@ function updateEnemies() {
 
     for (const enemy of enemies) {
 
-        enemy.update({
-            x: vip.x + 100,
-            y: vip.y
-        });
+    enemy.update({
+    x: vip.x,
+    y: vip.y
+});
 
     }
 
