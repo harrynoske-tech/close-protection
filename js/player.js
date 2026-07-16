@@ -4,9 +4,6 @@ guardImage.src = "assets/sprites/bodyguard.png";
 const vipImage = new Image();
 vipImage.src = "assets/sprites/vip.png";
 
-const crosshairImage = new Image();
-crosshairImage.src = "assets/sprites/crosshair.png";
-
 class Player {
     constructor(x, y, type) {
         this.x = x;
