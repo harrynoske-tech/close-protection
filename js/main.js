@@ -308,6 +308,9 @@ function getClosestEnemy() {
 
 function updateShooting() {
 
+    if (guard.weapon.name === "MK6") {
+    return;
+
     const enemy = getClosestEnemy();
 
     if (!enemy) return;
