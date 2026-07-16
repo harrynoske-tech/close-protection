@@ -805,7 +805,7 @@ function gameLoop() {
 vip.y = canvas.height / 2;
 
 // Update game
-if (!betweenWaves) {
+if (!betweenWaves && !shopOpen) {
 
  updateMovement();
 updateEnemies();
