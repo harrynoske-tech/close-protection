@@ -181,10 +181,15 @@ canvas.addEventListener("pointerup", (e) => {
 // WORLD
 // --------------------------------------------------
 
-function drawRoad(cameraX) {
+function drawRoad() {
 
     ctx.fillStyle = "#2e8b57";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
     ctx.fillStyle = "#555";
     ctx.fillRect(
@@ -196,10 +201,10 @@ function drawRoad(cameraX) {
 
     ctx.fillStyle = "white";
 
-    for (let i = -80; i < canvas.width + 80; i += 80) {
+    for (let i = 0; i < canvas.width; i += 80) {
 
         ctx.fillRect(
-            i - (cameraX % 80),
+            i,
             canvas.height / 2 - 3,
             40,
             6
@@ -208,6 +213,7 @@ function drawRoad(cameraX) {
     }
 
 }
+
 
 // --------------------------------------------------
 // MOVEMENT
@@ -567,7 +573,6 @@ function gameLoop() {
 
     }
     
-    vip.x += 2;
 
     // Update game
     updateMovement();
@@ -575,10 +580,10 @@ function gameLoop() {
     updateShooting();
 
     // Camera follows guard
-    const cameraX = vip.x - canvas.width / 2;
+    const cameraX = 0;
 
     // Draw world
-    drawRoad(cameraX);
+    drawRoad();
 
     // Draw players
     drawPlayers(cameraX);
