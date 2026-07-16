@@ -177,6 +177,17 @@ for (let i = 0; i < 3; i++) {
 
 canvas.addEventListener("pointerdown", (e) => {
 
+    if (shopOpen) {
+
+    handleShopClick(
+        e.clientX,
+        e.clientY
+    );
+
+    return;
+
+}
+
     e.preventDefault();
 
     moveTouch = e.pointerId;
@@ -771,9 +782,62 @@ function drawHUD() {
 
     ctx.textAlign = "left";
 
-}
+       }
+
+    }
 
 }
+
+function handleShopClick(x, y) {
+
+    for (const button of shopButtons) {
+
+        if (
+            x >= button.x &&
+            x <= button.x + button.w &&
+            y >= button.y &&
+            y <= button.y + button.h
+        ) {
+
+            switch (button.type) {
+
+                case "fire":
+                    guard.fireRate = Math.max(
+                        80,
+                        guard.fireRate - 25
+                    );
+                    break;
+
+                case "damage":
+                    guard.damage += 10;
+                    break;
+
+                case "range":
+                    guard.range += 20;
+                    break;
+
+                case "heal":
+                    vip.health = vip.maxHealth;
+                    break;
+
+            }
+
+            shopOpen = false;
+            betweenWaves = false;
+
+            wave++;
+
+            const enemyCount = wave + 2;
+
+            for (let i = 0; i < enemyCount; i++) {
+                enemies.push(randomEnemy());
+            }
+
+            return;
+
+        }
+
+    }
 
 }
 // --------------------------------------------------
