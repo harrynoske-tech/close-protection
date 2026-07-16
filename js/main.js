@@ -2,6 +2,13 @@ document.addEventListener("contextmenu", (e) => e.preventDefault());
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
+window.onerror = function (message, source, line, column, error) {
+    alert(
+        message +
+        "\nLine: " + line +
+        "\nColumn: " + column
+    );
+};
 
 function resize() {
     canvas.width = window.innerWidth;
