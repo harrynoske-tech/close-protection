@@ -344,7 +344,7 @@ function updateShooting() {
 
 }
 
-   function updateMK6() {
+  function updateMK6() {
 
     if (guard.weapon.name !== "MK6")
         return;
@@ -380,8 +380,6 @@ function updateShooting() {
             enemy.sprayed = true;
             enemy.sprayEndTime = Date.now() + 2000;
         }
-
-    }
 
 }
     function drawMK6Cone() {
