@@ -211,7 +211,6 @@ function gameLoop() {
 }
 
 
-    // Update enemies
 // Update enemies
 for (const enemy of enemies) {
 
@@ -404,7 +403,6 @@ ctx.fillText("🔪 " + guard.weapon.toUpperCase(), 20, 130);
 
 
 
-    // VIP hit
 // VIP hit
 for (const enemy of enemies) {
 
