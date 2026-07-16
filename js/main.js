@@ -122,10 +122,11 @@ const MAX_BULLETS = 40;
 const enemies = [];
 
 const shopButtons = [
-    { x: 120, y: 180, w: 220, h: 70, type: "fire" },
-    { x: 380, y: 180, w: 220, h: 70, type: "damage" },
-    { x: 120, y: 280, w: 220, h: 70, type: "range" },
-    { x: 380, y: 280, w: 220, h: 70, type: "heal" }
+    { x: canvas.width / 2 - 170, y: 180, w: 340, h: 55, type: "fire" },
+    { x: canvas.width / 2 - 170, y: 245, w: 340, h: 55, type: "damage" },
+    { x: canvas.width / 2 - 170, y: 310, w: 340, h: 55, type: "range" },
+    { x: canvas.width / 2 - 170, y: 375, w: 340, h: 55, type: "heal" }
+];
 ];
 
 resize();
@@ -749,10 +750,10 @@ for (const button of shopButtons) {
 
         ctx.font = "28px Arial";
 
-        ctx.fillText("1. Fire Rate", canvas.width / 2, 220);
-        ctx.fillText("2. Damage", canvas.width / 2, 270);
-        ctx.fillText("3. Range", canvas.width / 2, 320);
-        ctx.fillText("4. Heal VIP", canvas.width / 2, 370);
+        ctx.fillText("Fire Rate", canvas.width / 2, 218);
+ctx.fillText("Damage", canvas.width / 2, 283);
+ctx.fillText("Range", canvas.width / 2, 348);
+ctx.fillText("Heal VIP", canvas.width / 2, 413);
 
         ctx.textAlign = "left";
     }
