@@ -78,5 +78,7 @@ if (dist > 18) {
             this.width,
             this.height
         );
+        
+        ctx.globalAlpha = 1;
     }
 }
