@@ -214,8 +214,8 @@ function updateMovement() {
             const nx = dx / dist;
             const ny = dy / dist;
 
-            guard.x += nx * 3;
-            guard.y += ny * 3;
+        guard.x += nx * guard.speed;
+        guard.y += ny * guard.speed;
 
         }
 
