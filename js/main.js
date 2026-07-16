@@ -119,8 +119,14 @@ function gameLoop() {
     vip.x += 2;
 
     // Update enemies
+// Update enemies
 for (const enemy of enemies) {
-    enemy.update(vip);
+
+    enemy.update({
+        x: vip.x + 100,
+        y: vip.y
+    });
+
 }
 
 // Respawn enemies that wander too far away
