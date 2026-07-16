@@ -11,8 +11,27 @@ window.onerror = function (message, source, line, column, error) {
 };
 
 function resize() {
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
+    if (canvas.width < canvas.height) {
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "white";
+        ctx.font = "32px Arial";
+        ctx.textAlign = "center";
+
+        ctx.fillText(
+            "Rotate Device",
+            canvas.width / 2,
+            canvas.height / 2
+        );
+
+    }
+
 }
 window.addEventListener("resize", resize);
 resize();
