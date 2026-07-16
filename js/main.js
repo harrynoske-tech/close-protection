@@ -288,14 +288,6 @@ if (moveTouch !== null) {
 
 }
 
-// VIP follows the bodyguard
-const followX = guard.x - 60;
-const followY = guard.y;
-
-vip.x += (followX - vip.x) * 0.08;
-vip.y += (followY - vip.y) * 0.08;
-
-}
 
 // VIP follows the bodyguard
 const followX = guard.x - 60;
