@@ -220,6 +220,12 @@ for (const bullet of bullets) {
         ) {
 
             bullet.dead = true;
+            enemy.health = (enemy.health || 100) - guard.damage;
+
+if (enemy.health > 0) {
+    bullet.dead = true;
+    continue;
+}
 
 // Rewards
 score += 10;
