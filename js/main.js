@@ -109,7 +109,24 @@ function gameLoop() {
     vip.x += 2;
 
     for (const enemy of enemies) {
-    enemy.update(vip);
+
+    const guardDistance = Math.hypot(
+        enemy.x - guard.x,
+        enemy.y - guard.y
+    );
+
+    const vipDistance = Math.hypot(
+        enemy.x - vip.x,
+        enemy.y - vip.y
+    );
+
+    if (guardDistance < 80 && guardDistance < vipDistance) {
+        enemy.update(guard);
+    } else {
+        enemy.update(vip);
+    }
+
+}
 }
     const now = Date.now();
 
