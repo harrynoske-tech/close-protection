@@ -263,7 +263,7 @@ for (const bullet of bullets) {
 
 if (enemy.health > 0) {
     bullet.dead = true;
-    continue;
+    break;
 }
 
 // Rewards
