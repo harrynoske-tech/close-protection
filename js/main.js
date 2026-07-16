@@ -87,7 +87,7 @@ const vip = new Player(
 );
 vip.targetX = vip.x;
 vip.targetY = vip.y;
-vip.walkSpeed = 1;
+vip.walkSpeed = 1.3;
 vip.nextMove = Date.now();
 
 vip.health = 100;
