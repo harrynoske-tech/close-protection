@@ -54,10 +54,16 @@ if (this.sprayed && now > this.sprayEndTime) {
 
         const dist = Math.hypot(dx, dy);
 
-        if (dist > 18) {
-            this.x += (dx / dist) * this.speed;
-            this.y += (dy / dist) * this.speed;
-        }
+let speed = this.speed;
+
+if (this.sprayed) {
+    speed *= 0.25;
+}
+
+if (dist > 18) {
+    this.x += (dx / dist) * speed;
+    this.y += (dy / dist) * speed;
+}
     }
 
     draw(ctx, cameraX) {
