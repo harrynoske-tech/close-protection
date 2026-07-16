@@ -2,8 +2,7 @@ document.addEventListener("contextmenu", (e) => e.preventDefault());
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
-const crosshairImage = new Image();
-crosshairImage.src = "assets/sprites/crosshair.png";
+
 let maxAimDistance = 0;
 
 // --------------------------------------------------
@@ -620,8 +619,6 @@ vip.y = canvas.height / 2;
 
     // Draw players
     drawPlayers(cameraX);
-
-    drawCrosshair(cameraX);
 
     // Draw health bars
     drawHealthBars(cameraX);
