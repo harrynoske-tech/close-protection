@@ -7,6 +7,7 @@ class Enemy {
         this.speed = 1.6;
         this.width = 48;
         this.height = 64;
+        this.health = 100;
 
         this.respawn(x, y);
     }
