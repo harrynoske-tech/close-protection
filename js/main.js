@@ -256,20 +256,34 @@ if (
 
 }
 
-   if (touchX !== null) {
+// Move with left joystick
+if (moveTouch !== null) {
 
-    const worldX = touchX + (guard.x - canvas.width / 2);
-    const worldY = touchY;
-
-    const dx = worldX - guard.x;
-    const dy = worldY - guard.y;
+    const dx = moveX - leftStick.x;
+    const dy = moveY - leftStick.y;
 
     const dist = Math.hypot(dx, dy);
 
-    if (dist > 2) {
-        guard.x += (dx / dist) * 4;
-        guard.y += (dy / dist) * 4;
+    if (dist > 10) {
+
+        const max = leftStick.radius;
+
+        const nx = dx / Math.max(dist, max);
+        const ny = dy / Math.max(dist, max);
+
+        guard.x += nx * 5;
+        guard.y += ny * 5;
+
     }
+
+}
+
+// VIP follows the bodyguard
+const followX = guard.x - 60;
+const followY = guard.y;
+
+vip.x += (followX - vip.x) * 0.08;
+vip.y += (followY - vip.y) * 0.08;
 
 }
 
