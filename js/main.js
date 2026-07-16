@@ -122,24 +122,59 @@ const rightStick = {
 };
 
 canvas.addEventListener("pointerdown", (e) => {
+
     e.preventDefault();
-    touchX = e.clientX;
-    touchY = e.clientY;
+
+    if (e.clientX < canvas.width / 2) {
+
+        moveTouch = e.pointerId;
+
+        moveX = e.clientX;
+        moveY = e.clientY;
+
+    } else {
+
+        shootTouch = e.pointerId;
+
+        aimX = e.clientX;
+        aimY = e.clientY;
+
+    }
+
 });
 
 canvas.addEventListener("pointermove", (e) => {
-    e.preventDefault();
 
-    if (e.buttons || e.pointerType === "touch") {
-        touchX = e.clientX;
-        touchY = e.clientY;
+    if (e.pointerId === moveTouch) {
+
+        moveX = e.clientX;
+        moveY = e.clientY;
+
     }
+
+    if (e.pointerId === shootTouch) {
+
+        aimX = e.clientX;
+        aimY = e.clientY;
+
+    }
+
 });
 
 canvas.addEventListener("pointerup", (e) => {
-    e.preventDefault();
-    touchX = null;
-    touchY = null;
+
+    if (e.pointerId === moveTouch) {
+
+        moveTouch = null;
+
+    }
+
+    if (e.pointerId === shootTouch) {
+
+        shootTouch = null;
+
+    }
+
 });
 
 function drawRoad(offset) {
