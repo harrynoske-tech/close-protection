@@ -68,6 +68,9 @@ if (dist > 18) {
 
     draw(ctx, cameraX) {
 
+        if (this.sprayed) {
+    ctx.globalAlpha = 0.4;
+}
         ctx.drawImage(
             offenderImage,
             this.x - cameraX - this.width / 2,
