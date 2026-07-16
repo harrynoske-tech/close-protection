@@ -114,6 +114,7 @@ let wave = 1;
 let enemiesRemaining = 3;
 let waveCountdown = 0;
 let betweenWaves = false;
+let shopOpen = false;
 
 const bullets = [];
 const MAX_BULLETS = 40;
