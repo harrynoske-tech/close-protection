@@ -517,6 +517,41 @@ function updateBodyChecks() {
 
 }
 
+function separateEnemies() {
+
+    for (let i = 0; i < enemies.length; i++) {
+
+        for (let j = i + 1; j < enemies.length; j++) {
+
+            const a = enemies[i];
+            const b = enemies[j];
+
+            const dx = b.x - a.x;
+            const dy = b.y - a.y;
+
+            const dist = Math.hypot(dx, dy);
+
+            if (dist > 0 && dist < 35) {
+
+                const overlap = (35 - dist) / 2;
+
+                const nx = dx / dist;
+                const ny = dy / dist;
+
+                a.x -= nx * overlap;
+                a.y -= ny * overlap;
+
+                b.x += nx * overlap;
+                b.y += ny * overlap;
+
+            }
+
+        }
+
+    }
+
+}
+
 // --------------------------------------------------
 // VIP DAMAGE
 // --------------------------------------------------
@@ -721,10 +756,11 @@ vip.y = canvas.height / 2;
 // Update game
 if (!betweenWaves) {
 
-    updateMovement();
-    updateEnemies();
-    updateBodyChecks();
-    updateShooting();
+ updateMovement();
+updateEnemies();
+separateEnemies();
+updateBodyChecks();
+updateShooting();
     updateMK6();
 
 } else {
