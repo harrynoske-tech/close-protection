@@ -51,6 +51,8 @@ let aimX = 0;
 let aimY = 0;
 let aimAngle = 0;
 let aiming = false;
+let crosshairX = 0;
+let crosshairY = 0;
 
 // --------------------------------------------------
 // PLAYERS
@@ -330,11 +332,8 @@ function updateShooting() {
     if (bullets.length >= MAX_BULLETS)
         return;
 
-    const targetX =
-        guard.x + Math.cos(aimAngle) * 1000;
-
-    const targetY =
-        guard.y + Math.sin(aimAngle) * 1000;
+const targetX = crosshairX;
+const targetY = crosshairY;
 
     bullets.push(
         new Bullet(
@@ -537,20 +536,30 @@ function drawCrosshair(cameraX) {
 
     if (!aiming) return;
 
-    const distance = 120;
+    const dx = aimX - rightStick.x;
+    const dy = aimY - rightStick.y;
 
-    const x =
-        guard.x - cameraX +
+    const stickDistance = Math.min(
+        Math.hypot(dx, dy),
+        rightStick.radius
+    );
+
+    const distance =
+        40 +
+        (stickDistance / rightStick.radius) * 320;
+
+    crosshairX =
+        guard.x +
         Math.cos(aimAngle) * distance;
 
-    const y =
+    crosshairY =
         guard.y +
         Math.sin(aimAngle) * distance;
 
     ctx.drawImage(
         crosshairImage,
-        x - 20,
-        y - 20,
+        crosshairX - cameraX - 20,
+        crosshairY - 20,
         40,
         40
     );
