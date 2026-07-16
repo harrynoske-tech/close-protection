@@ -486,11 +486,14 @@ function updateCollisions() {
 
   enemies.splice(i, 1);
 
-if (enemies.length === 0) {
+if (
+    enemies.length === 0 &&
+    !betweenWaves &&
+    !shopOpen
+) {
 
     betweenWaves = true;
     shopOpen = true;
-    waveCountdown = 180; // 3 seconds at 60 FPS
 
 }
 
