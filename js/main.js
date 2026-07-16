@@ -19,7 +19,6 @@ function resize() {
 
 }
 
-window.addEventListener("resize", resize);
 
 // --------------------------------------------------
 // JOYSTICKS
@@ -36,6 +35,9 @@ const rightStick = {
     y: 0,
     radius: 70
 };
+
+window.addEventListener("resize", resize);
+resize();
 
 let moveTouch = null;
 let shootTouch = null;
