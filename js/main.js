@@ -581,6 +581,7 @@ vip.y = canvas.height / 2;
     // Update game
     updateMovement();
     updateEnemies();
+    updateBodyChecks();
     updateShooting();
 
     // Camera follows guard
