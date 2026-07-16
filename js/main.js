@@ -136,19 +136,9 @@ canvas.addEventListener("pointerdown", (e) => {
 
     e.preventDefault();
 
-    if (e.clientX < canvas.width / 2) {
-
-        moveTouch = e.pointerId;
-        moveX = e.clientX;
-        moveY = e.clientY;
-
-    } else {
-
-        shootTouch = e.pointerId;
-        aimX = e.clientX;
-        aimY = e.clientY;
-
-    }
+    moveTouch = e.pointerId;
+    moveX = e.clientX;
+    moveY = e.clientY;
 
 });
 
