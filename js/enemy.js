@@ -4,7 +4,7 @@ offenderImage.src = "assets/sprites/offender.png";
 class Enemy {
 
     constructor(x, y) {
-        this.speed = 2;
+        this.speed = 1.2;
         this.width = 52;
         this.height = 64;
         this.health = 100;
