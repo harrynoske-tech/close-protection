@@ -55,7 +55,7 @@ let moveY = 0;
 let aimX = 0;
 let aimY = 0;
 let aimAngle = 0;
-let aiming = false;
+let aiming = true;
 
 let crosshairX = canvas.width / 2;
 let crosshairY = canvas.height / 2;
