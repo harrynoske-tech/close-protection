@@ -533,6 +533,30 @@ function drawHealthBars(cameraX) {
 
 }
 
+function drawCrosshair(cameraX) {
+
+    if (!aiming) return;
+
+    const distance = 120;
+
+    const x =
+        guard.x - cameraX +
+        Math.cos(aimAngle) * distance;
+
+    const y =
+        guard.y +
+        Math.sin(aimAngle) * distance;
+
+    ctx.drawImage(
+        crosshairImage,
+        x - 20,
+        y - 20,
+        40,
+        40
+    );
+
+}
+
 function drawHUD() {
 
     ctx.fillStyle = "white";
@@ -617,6 +641,8 @@ vip.y = canvas.height / 2;
 
     // Draw players
     drawPlayers(cameraX);
+
+    drawCrosshair(cameraX);
 
     // Draw health bars
     drawHealthBars(cameraX);
