@@ -352,23 +352,14 @@ function updateCollisions() {
                 cash += 50;
                 enemiesRemaining--;
 
-                enemies.splice(i, 1);
+  enemies.splice(i, 1);
 
-                if (enemiesRemaining <= 0) {
+if (enemies.length === 0) {
 
-                    wave++;
+    betweenWaves = true;
+    waveCountdown = 180; // 3 seconds at 60 FPS
 
-                    enemiesRemaining = wave * 3;
-
-                    for (let j = 0; j < enemiesRemaining; j++) {
-                        enemies.push(randomEnemy());
-                    }
-
-                } else {
-
-                    enemies.push(randomEnemy());
-
-                }
+}
 
                 break;
 
