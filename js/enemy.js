@@ -8,6 +8,9 @@ class Enemy {
         this.width = 52;
         this.height = 64;
         this.health = 100;
+        
+        this.sprayed = false;
+        this.sprayEndTime = 0;
 
         this.knockbackX = 0;
         this.knockbackY = 0;
