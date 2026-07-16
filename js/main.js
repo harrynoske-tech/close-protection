@@ -344,10 +344,20 @@ function updateShooting() {
 
 }
 
-    function updateMK6() {
+   function updateMK6() {
 
     if (guard.weapon.name !== "MK6")
         return;
+
+    const target = getClosestEnemy();
+
+    if (!target)
+        return;
+
+    const guardAngle = Math.atan2(
+        target.y - guard.y,
+        target.x - guard.x
+    );
 
     for (const enemy of enemies) {
 
@@ -355,30 +365,20 @@ function updateShooting() {
             enemy.x - guard.x,
             enemy.y - guard.y
         );
+
         const angleToEnemy = Math.atan2(
-    enemy.y - guard.y,
-    enemy.x - guard.x
-);
+            enemy.y - guard.y,
+            enemy.x - guard.x
+        );
 
-const enemy = getClosestEnemy();
-
-if (!enemy) return;
-
-const guardAngle = Math.atan2(
-    enemy.y - guard.y,
-    enemy.x - guard.x
-);
-
-const angleDiff = Math.abs(angleToEnemy - guardAngle);
+        const angleDiff = Math.abs(angleToEnemy - guardAngle);
 
         if (
-    dist < guard.weapon.range &&
-    angleDiff < 0.6
-) {
-
+            dist < guard.weapon.range &&
+            angleDiff < 0.6
+        ) {
             enemy.sprayed = true;
             enemy.sprayEndTime = Date.now() + 2000;
-
         }
 
     }
