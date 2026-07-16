@@ -345,6 +345,8 @@ function updateShooting() {
 
 }
 
+}
+
   function updateMK6() {
 
     if (guard.weapon.name !== "MK6")
