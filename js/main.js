@@ -343,6 +343,29 @@ function updateShooting() {
     guard.lastShot = now;
 
 }
+
+    function updateMK6() {
+
+    if (guard.weapon.name !== "MK6")
+        return;
+
+    for (const enemy of enemies) {
+
+        const dist = Math.hypot(
+            enemy.x - guard.x,
+            enemy.y - guard.y
+        );
+
+        if (dist < 80) {
+
+            enemy.sprayed = true;
+            enemy.sprayEndTime = Date.now() + 2000;
+
+        }
+
+    }
+
+}
 // --------------------------------------------------
 // BULLETS
 // --------------------------------------------------
@@ -650,6 +673,7 @@ if (!betweenWaves) {
     updateEnemies();
     updateBodyChecks();
     updateShooting();
+    updateMK6();
 
 } else {
 
