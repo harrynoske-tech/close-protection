@@ -57,8 +57,10 @@ let aimY = 0;
 let aimAngle = 0;
 let aiming = false;
 
-let crosshairX = 0;
-let crosshairY = 0;
+let crosshairX = canvas.width / 2;
+let crosshairY = canvas.height / 2;
+
+const crosshairSpeed = 8;
 
 // --------------------------------------------------
 // PLAYERS
@@ -540,26 +542,57 @@ function drawHealthBars(cameraX) {
 
 function drawCrosshair(cameraX) {
 
-    if (!aiming) return;
+    if (shootTouch !== null) {
 
-    const dx = aimX - rightStick.x;
-    const dy = aimY - rightStick.y;
+        const dx = aimX - rightStick.x;
+        const dy = aimY - rightStick.y;
 
-    const stickDistance = Math.min(
-        Math.hypot(dx, dy),
-        rightStick.radius
+        const dist = Math.hypot(dx, dy);
+
+        if (dist > 10) {
+
+            const nx = dx / dist;
+            const ny = dy / dist;
+
+            const power = Math.min(
+                dist / rightStick.radius,
+                1
+            );
+
+            crosshairX +=
+                nx *
+                crosshairSpeed *
+                power;
+
+            crosshairY +=
+                ny *
+                crosshairSpeed *
+                power;
+
+        }
+
+    }
+
+    // Keep it on screen
+    crosshairX = Math.max(
+        20,
+        Math.min(canvas.width - 20, crosshairX)
     );
 
- const deadZone = 12;
+    crosshairY = Math.max(
+        20,
+        Math.min(canvas.height - 20, crosshairY)
+    );
 
-const usableDistance = Math.max(
-    0,
-    stickDistance - deadZone
-);
+    ctx.drawImage(
+        crosshairImage,
+        crosshairX - 20,
+        crosshairY - 20,
+        40,
+        40
+    );
 
-const stickPercent =
-    usableDistance /
-    (rightStick.radius - deadZone);
+}
 
 // Square the value to make the response much softer
 const response = stickPercent * stickPercent;
