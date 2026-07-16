@@ -3,8 +3,8 @@ document.addEventListener("contextmenu", (e) => e.preventDefault());
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 const crosshairImage = new Image();
-const maxAimDistance = Math.max(canvas.width, canvas.height);
 crosshairImage.src = "assets/sprites/crosshair.png";
+let maxAimDistance = 0;
 
 // --------------------------------------------------
 // SCREEN
@@ -59,8 +59,6 @@ let aiming = false;
 
 let crosshairX = 0;
 let crosshairY = 0;
-
-let maxAimDistance = 0;
 
 // --------------------------------------------------
 // PLAYERS
