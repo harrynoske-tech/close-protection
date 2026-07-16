@@ -482,23 +482,6 @@ function drawPlayers(cameraX) {
 
     vip.draw(ctx, cameraX);
     guard.draw(ctx, cameraX);
-    // Aim line
-if (aiming) {
-
-    ctx.strokeStyle = "#FFD700";
-    ctx.lineWidth = 4;
-
-    ctx.beginPath();
-    ctx.moveTo(guard.x - cameraX, guard.y);
-
-    ctx.lineTo(
-        guard.x - cameraX + Math.cos(aimAngle) * 80,
-        guard.y + Math.sin(aimAngle) * 80
-    );
-
-    ctx.stroke();
-
-}
 
 }
 
