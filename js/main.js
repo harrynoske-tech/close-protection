@@ -716,6 +716,56 @@ function drawHUD() {
 
     ctx.textAlign = "left";
 
+        if (shopOpen) {
+
+    ctx.fillStyle = "rgba(0,0,0,0.8)";
+    ctx.fillRect(
+        60,
+        80,
+        canvas.width - 120,
+        canvas.height - 160
+    );
+
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+
+    ctx.font = "40px Arial";
+    ctx.fillText(
+        "UPGRADE SHOP",
+        canvas.width / 2,
+        140
+    );
+
+    ctx.font = "28px Arial";
+
+    ctx.fillText(
+        "1. Fire Rate",
+        canvas.width / 2,
+        220
+    );
+
+    ctx.fillText(
+        "2. Damage",
+        canvas.width / 2,
+        270
+    );
+
+    ctx.fillText(
+        "3. Range",
+        canvas.width / 2,
+        320
+    );
+
+    ctx.fillText(
+        "4. Heal VIP",
+        canvas.width / 2,
+        370
+    );
+
+    ctx.textAlign = "left";
+
+}
+
 }
 
 }
