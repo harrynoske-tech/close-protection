@@ -19,6 +19,9 @@ class Enemy {
         this.attackRate = 500;
         
         this.type = Math.random() < 0.5 ? "knife" : "gun";
+ if (this.type === "knife") {
+    this.health = 999999;
+}
 
         this.respawn(x, y);
     }
