@@ -546,7 +546,7 @@ function updateCollisions() {
   enemies.splice(i, 1);
 
 if (
-    enemies.length === 0 &&
+    enemiesRemaining === 0 &&
     !betweenWaves &&
     !shopOpen
 ) {
