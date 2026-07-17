@@ -1,6 +1,9 @@
 const offenderImage = new Image();
 offenderImage.src = "assets/sprites/offender.png";
 
+const protesterImage = new Image();
+protesterImage.src = "assets/sprites/protester.png";
+
 class Enemy {
 
     constructor(x, y) {
@@ -86,13 +89,18 @@ if (dist > 18) {
         if (this.sprayed) {
     ctx.globalAlpha = 0.4;
 }
-        ctx.drawImage(
-            offenderImage,
-            this.x - cameraX - this.width / 2,
-            this.y - this.height / 2,
-            this.width,
-            this.height
-        );
+    const sprite =
+    this.type === "knife"
+        ? protesterImage
+        : offenderImage;
+
+ctx.drawImage(
+    sprite,
+    this.x - cameraX - this.width / 2,
+    this.y - this.height / 2,
+    this.width,
+    this.height
+);
         
         ctx.globalAlpha = 1;
     }
