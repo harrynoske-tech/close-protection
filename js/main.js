@@ -290,35 +290,32 @@ function updateEnemies() {
             y: vip.y
         });
 
-        if (
-            enemy.type === "knife" &&
-            (
-                enemy.x < 0 ||
-                enemy.x > canvas.width ||
-                enemy.y < 0 ||
-                enemy.y > canvas.height
-            )
-        ) {
-
-            score += 25;
-            cash += 75;
-            enemiesRemaining--;
-
-            enemies.splice(i, 1);
-
-        if (
-    enemiesRemaining === 0 &&
-    !betweenWaves &&
-    !shopOpen
+if (
+    enemy.type === "knife" &&
+    enemy.hasEnteredMap &&
+    (
+        enemy.x < -80 ||
+        enemy.x > canvas.width + 80 ||
+        enemy.y < -80 ||
+        enemy.y > canvas.height + 80
+    )
 ) {
 
-                betweenWaves = true;
-                shopOpen = false;
-                waveCountdown = 180;
+    score += 25;
+    cash += 75;
+    enemiesRemaining--;
 
-            }
+    enemies.splice(i, 1);
 
-        }
+    if (
+        enemiesRemaining === 0 &&
+        !betweenWaves &&
+        !shopOpen
+    ) {
+
+        betweenWaves = true;
+        shopOpen = false;
+        waveCountdown = 180;
 
     }
 
