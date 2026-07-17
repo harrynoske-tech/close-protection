@@ -17,6 +17,8 @@ class Enemy {
 
         this.lastAttack = 0;
         this.attackRate = 500;
+
+        this.hasEnteredMap = false;
         
         this.type = Math.random() < 0.5 ? "knife" : "gun";
  if (this.type === "knife") {
@@ -68,6 +70,14 @@ if (this.sprayed) {
 if (dist > 18) {
     this.x += (dx / dist) * speed;
     this.y += (dy / dist) * speed;
+}
+        if (
+    this.x >= 0 &&
+    this.x <= canvas.width &&
+    this.y >= 0 &&
+    this.y <= canvas.height
+) {
+    this.hasEnteredMap = true;
 }
     }
 
