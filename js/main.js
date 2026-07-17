@@ -562,7 +562,7 @@ enemy.knockbackY =
     
     }
     
-  if (
+if (
     enemy.type === "knife" &&
     (
         enemy.x < 0 ||
@@ -570,29 +570,29 @@ enemy.knockbackY =
         enemy.y < 0 ||
         enemy.y > canvas.height
     )
-)
+) {
 
     score += 25;
     cash += 75;
     enemiesRemaining--;
 
     enemies.splice(i, 1);
-    
+
     if (
-    enemies.length === 0 &&
-    !betweenWaves &&
-    !shopOpen
-) {
+        enemies.length === 0 &&
+        !betweenWaves &&
+        !shopOpen
+    ) {
 
-    betweenWaves = true;
-    shopOpen = false;
-    waveCountdown = 180;
+        betweenWaves = true;
+        shopOpen = false;
+        waveCountdown = 180;
 
-}
+    }
+
     continue;
 
-
-        }
+}
 
     }
 
