@@ -577,6 +577,18 @@ enemy.knockbackY =
     enemiesRemaining--;
 
     enemies.splice(i, 1);
+    
+    if (
+    enemies.length === 0 &&
+    !betweenWaves &&
+    !shopOpen
+) {
+
+    betweenWaves = true;
+    shopOpen = false;
+    waveCountdown = 180;
+
+}
     continue;
 
 
