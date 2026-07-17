@@ -549,11 +549,14 @@ function updateBodyChecks() {
 
         if (dist < 40) {
 
-            enemy.knockbackX =
-                (dx / dist) * 10;
+           const power =
+    enemy.type === "knife" ? 22 : 10;
 
-            enemy.knockbackY =
-                (dy / dist) * 10;
+enemy.knockbackX =
+    (dx / dist) * power;
+
+enemy.knockbackY =
+    (dy / dist) * power;
 
         }
 
