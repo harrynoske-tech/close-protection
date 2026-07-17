@@ -17,6 +17,8 @@ class Enemy {
 
         this.lastAttack = 0;
         this.attackRate = 500;
+        
+        this.type = Math.random() < 0.5 ? "knife" : "gun";
 
         this.respawn(x, y);
     }
