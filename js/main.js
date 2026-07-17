@@ -590,13 +590,18 @@ function updateBodyChecks() {
 
         const dist = Math.hypot(dx, dy);
 
-        if (dist < 40) {
+       if (dist < 40 && !enemy.falling) {
 
-            enemy.knockbackX = (dx / dist) * 10;
-            enemy.knockbackY = (dy / dist) * 10;
+    enemy.knockbackX = (dx / dist) * 10;
+    enemy.knockbackY = (dy / dist) * 10;
 
-        }
+    enemy.bodyHits++;
 
+    if (enemy.bodyHits >= 3) {
+        enemy.falling = true;
+    }
+
+}
         // Remove knife enemy once knocked off the map
         if (
             enemy.x < -80 ||
