@@ -570,37 +570,26 @@ waveCountdown = 180;
 
 }
 
-if (
-    enemy.type === "knife" &&
-    (
-        enemy.x < 0 ||
-        enemy.x > canvas.width ||
-        enemy.y < 0 ||
-        enemy.y > canvas.height
-    )
-) {
+function updateBodyChecks() {
 
-    score += 25;
-    cash += 75;
-    enemiesRemaining--;
+    for (let i = enemies.length - 1; i >= 0; i--) {
 
-    enemies.splice(i, 1);
+        const enemy = enemies[i];
 
-    if (
-        enemies.length === 0 &&
-        !betweenWaves &&
-        !shopOpen
-    ) {
+        const dx = enemy.x - guard.x;
+        const dy = enemy.y - guard.y;
 
-        betweenWaves = true;
-        shopOpen = false;
-        waveCountdown = 180;
+        const dist = Math.hypot(dx, dy);
 
-    }
+        if (dist < 40) {
 
-    continue;
+            const power =
+                enemy.type === "knife" ? 22 : 10;
 
-}
+            enemy.knockbackX = (dx / dist) * power;
+            enemy.knockbackY = (dy / dist) * power;
+
+        }
 
     }
 
