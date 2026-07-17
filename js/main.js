@@ -492,7 +492,9 @@ function updateCollisions() {
 
                 bullet.dead = true;
 
-                enemy.health -= guard.damage;
+                if (enemy.type === "gun") {
+    enemy.health -= guard.damage;
+}
 
                 if (enemy.health > 0) {
                     break;
