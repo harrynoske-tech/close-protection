@@ -317,6 +317,9 @@ if (
         shopOpen = false;
         waveCountdown = 180;
 
+             }
+
+         }
     }
 
 }
