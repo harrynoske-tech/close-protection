@@ -161,7 +161,11 @@ function randomEnemy() {
 
 enemiesRemaining = 3;
 
-for (let i = 0; i < 3; i++) {
+const firstWaveEnemies = 3;
+
+enemiesRemaining = firstWaveEnemies;
+
+for (let i = 0; i < firstWaveEnemies; i++) {
     enemies.push(randomEnemy());
 }
 // --------------------------------------------------
