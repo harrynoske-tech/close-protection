@@ -23,6 +23,9 @@ class Enemy {
 
         this.hasEnteredMap = false;
         
+        this.bodyHits = 0;
+this.falling = false;
+        
         this.type = Math.random() < 0.5 ? "knife" : "gun";
  if (this.type === "knife") {
     this.health = 999999;
