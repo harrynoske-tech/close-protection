@@ -562,15 +562,15 @@ enemy.knockbackY =
     
     }
     
-    if (
+  if (
     enemy.type === "knife" &&
     (
-        enemy.x < -100 ||
-        enemy.x > canvas.width + 100 ||
-        enemy.y < -100 ||
-        enemy.y > canvas.height + 100
+        enemy.x < 0 ||
+        enemy.x > canvas.width ||
+        enemy.y < 0 ||
+        enemy.y > canvas.height
     )
-) {
+)
 
     score += 25;
     cash += 75;
