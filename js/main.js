@@ -538,30 +538,6 @@ waveCountdown = 180;
 
 }
 
-function updateBodyChecks() {
-
-    for (let i = enemies.length - 1; i >= 0; i--) {
-
-    const enemy = enemies[i];
-
-        const dx = enemy.x - guard.x;
-        const dy = enemy.y - guard.y;
-
-        const dist = Math.hypot(dx, dy);
-
-        if (dist < 40) {
-
-           const power =
-    enemy.type === "knife" ? 22 : 10;
-
-enemy.knockbackX =
-    (dx / dist) * power;
-
-enemy.knockbackY =
-    (dy / dist) * power;
-    
-    }
-    
 if (
     enemy.type === "knife" &&
     (
