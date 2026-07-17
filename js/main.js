@@ -540,7 +540,9 @@ waveCountdown = 180;
 
 function updateBodyChecks() {
 
-    for (const enemy of enemies) {
+    for (let i = enemies.length - 1; i >= 0; i--) {
+
+    const enemy = enemies[i];
 
         const dx = enemy.x - guard.x;
         const dy = enemy.y - guard.y;
@@ -557,6 +559,26 @@ enemy.knockbackX =
 
 enemy.knockbackY =
     (dy / dist) * power;
+    
+    }
+    
+    if (
+    enemy.type === "knife" &&
+    (
+        enemy.x < -100 ||
+        enemy.x > canvas.width + 100 ||
+        enemy.y < -100 ||
+        enemy.y > canvas.height + 100
+    )
+) {
+
+    score += 25;
+    cash += 75;
+    enemiesRemaining--;
+
+    enemies.splice(i, 1);
+    continue;
+
 
         }
 
