@@ -582,6 +582,11 @@ function updateBodyChecks() {
 
         const enemy = enemies[i];
 
+        // Only knife enemies can be body-checked
+        if (enemy.type !== "knife") {
+            continue;
+        }
+
         const dx = enemy.x - guard.x;
         const dy = enemy.y - guard.y;
 
@@ -589,11 +594,36 @@ function updateBodyChecks() {
 
         if (dist < 40) {
 
-            const power =
-                enemy.type === "knife" ? 22 : 10;
+            enemy.knockbackX = (dx / dist) * 10;
+            enemy.knockbackY = (dy / dist) * 10;
 
-            enemy.knockbackX = (dx / dist) * power;
-            enemy.knockbackY = (dy / dist) * power;
+        }
+
+        // Remove knife enemy once knocked off the map
+        if (
+            enemy.x < -80 ||
+            enemy.x > canvas.width + 80 ||
+            enemy.y < -80 ||
+            enemy.y > canvas.height + 80
+        ) {
+
+            score += 10;
+            cash += 50;
+            enemiesRemaining--;
+
+            enemies.splice(i, 1);
+
+            if (
+                enemiesRemaining === 0 &&
+                !betweenWaves &&
+                !shopOpen
+            ) {
+
+                betweenWaves = true;
+                shopOpen = false;
+                waveCountdown = 180;
+
+            }
 
         }
 
