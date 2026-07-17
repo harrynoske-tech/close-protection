@@ -277,12 +277,44 @@ function updateMovement() {
 
 function updateEnemies() {
 
-    for (const enemy of enemies) {
+    for (let i = enemies.length - 1; i >= 0; i--) {
 
-    enemy.update({
-    x: vip.x,
-    y: vip.y
-});
+        const enemy = enemies[i];
+
+        enemy.update({
+            x: vip.x,
+            y: vip.y
+        });
+
+        if (
+            enemy.type === "knife" &&
+            (
+                enemy.x < 0 ||
+                enemy.x > canvas.width ||
+                enemy.y < 0 ||
+                enemy.y > canvas.height
+            )
+        ) {
+
+            score += 25;
+            cash += 75;
+            enemiesRemaining--;
+
+            enemies.splice(i, 1);
+
+            if (
+                enemies.length === 0 &&
+                !betweenWaves &&
+                !shopOpen
+            ) {
+
+                betweenWaves = true;
+                shopOpen = false;
+                waveCountdown = 180;
+
+            }
+
+        }
 
     }
 
