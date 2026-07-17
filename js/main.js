@@ -159,8 +159,6 @@ function randomEnemy() {
 
 }
 
-enemiesRemaining = 3;
-
 const firstWaveEnemies = 3;
 
 enemiesRemaining = firstWaveEnemies;
@@ -308,11 +306,11 @@ function updateEnemies() {
 
             enemies.splice(i, 1);
 
-            if (
-                enemies.length === 0 &&
-                !betweenWaves &&
-                !shopOpen
-            ) {
+        if (
+    enemiesRemaining === 0 &&
+    !betweenWaves &&
+    !shopOpen
+) {
 
                 betweenWaves = true;
                 shopOpen = false;
@@ -886,9 +884,11 @@ function handleShopClick(x, y) {
             shopOpen = false;
             betweenWaves = false;
             
-            wave++;
+wave++;
 
 const enemyCount = wave + 2;
+
+enemiesRemaining = enemyCount;
 
 for (let i = 0; i < enemyCount; i++) {
     enemies.push(randomEnemy());
