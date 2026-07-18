@@ -112,13 +112,7 @@ guard.maxHealth = 100;
 // GAME
 // --------------------------------------------------
 
-const shopButtons = [
-    { type: "fire" },
-    { type: "damage" },
-    { type: "speed" },
-    { type: "health" },
-    { type: "start" }
-];
+const shopButtons = [];
 
 const upgradeLevels = {
     fire: 0,
@@ -133,6 +127,68 @@ const upgradeCosts = [
     5000,
     10000
 ];
+
+function getShopLayout() {
+
+    const margin = 20;
+    const header = 110;
+    const footer = 90;
+
+    const cardHeight = 72;
+
+    const gap =
+        (canvas.height - header - footer - (cardHeight * 4)) / 5;
+
+    return [
+
+        {
+            type: "fire",
+            title: "🔥 Fire Rate",
+            x: margin,
+            y: header + gap,
+            w: canvas.width - margin * 2,
+            h: cardHeight
+        },
+
+        {
+            type: "damage",
+            title: "💥 Damage",
+            x: margin,
+            y: header + gap * 2 + cardHeight,
+            w: canvas.width - margin * 2,
+            h: cardHeight
+        },
+
+        {
+            type: "speed",
+            title: "👟 Move Speed",
+            x: margin,
+            y: header + gap * 3 + cardHeight * 2,
+            w: canvas.width - margin * 2,
+            h: cardHeight
+        },
+
+        {
+            type: "health",
+            title: "❤️ VIP Health",
+            x: margin,
+            y: header + gap * 4 + cardHeight * 3,
+            w: canvas.width - margin * 2,
+            h: cardHeight
+        },
+
+        {
+            type: "start",
+            title: "START NEXT WAVE",
+            x: margin,
+            y: canvas.height - 75,
+            w: canvas.width - margin * 2,
+            h: 55
+        }
+
+    ];
+
+}
 
 resize();
 
