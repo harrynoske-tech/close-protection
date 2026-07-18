@@ -290,36 +290,32 @@ function updateEnemies() {
             y: vip.y
         });
 
-if (
-    enemy.type === "knife" &&
-    enemy.hasEnteredMap &&
-    (
-        enemy.x < -80 ||
-        enemy.x > canvas.width + 80 ||
-        enemy.y < -80 ||
-        enemy.y > canvas.height + 80
-    )
-) {
+        // Remove fallen protesters after 30 frames
+        if (
+            enemy.type === "knife" &&
+            enemy.falling &&
+            enemy.fallTimer > 30
+        ) {
 
-    score += 25;
-    cash += 75;
-    enemiesRemaining--;
+            score += 25;
+            cash += 75;
+            enemiesRemaining--;
 
-    enemies.splice(i, 1);
+            enemies.splice(i, 1);
 
-    if (
-        enemiesRemaining === 0 &&
-        !betweenWaves &&
-        !shopOpen
-    ) {
+            if (
+                enemiesRemaining === 0 &&
+                !betweenWaves &&
+                !shopOpen
+            ) {
+                betweenWaves = true;
+                shopOpen = false;
+                waveCountdown = 180;
+            }
 
-        betweenWaves = true;
-        shopOpen = false;
-        waveCountdown = 180;
+            continue;
+        }
 
-             }
-
-         }
     }
 
 }
