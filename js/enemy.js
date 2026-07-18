@@ -23,8 +23,9 @@ class Enemy {
 
         this.hasEnteredMap = false;
         
-        this.bodyHits = 0;
+      this.bodyHits = 0;
 this.falling = false;
+this.fallTimer = 0;
         
         this.type = Math.random() < 0.5 ? "knife" : "gun";
  if (this.type === "knife") {
@@ -39,8 +40,14 @@ this.falling = false;
         this.y = y;
     }
 
-    update(target) {
-        const now = Date.now();
+   update(target) {
+
+    if (this.falling) {
+        this.fallTimer++;
+        return;
+    }
+
+    const now = Date.now();
 
 if (this.sprayed && now > this.sprayEndTime) {
 
