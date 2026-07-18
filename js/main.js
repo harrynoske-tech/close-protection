@@ -113,10 +113,11 @@ guard.maxHealth = 100;
 // --------------------------------------------------
 
 const shopButtons = [
-    { x: canvas.width / 2 - 170, y: 180, w: 340, h: 55, type: "fire" },
-    { x: canvas.width / 2 - 170, y: 245, w: 340, h: 55, type: "damage" },
-    { x: canvas.width / 2 - 170, y: 310, w: 340, h: 55, type: "range" },
-    { x: canvas.width / 2 - 170, y: 375, w: 340, h: 55, type: "heal" }
+    { type: "fire" },
+    { type: "damage" },
+    { type: "speed" },
+    { type: "health" },
+    { type: "start" }
 ];
 
 resize();
