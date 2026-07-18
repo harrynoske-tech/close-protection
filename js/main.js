@@ -128,65 +128,90 @@ const upgradeCosts = [
     10000
 ];
 
+// ----------------------------
+// Shop scrolling
+// ----------------------------
+let shopScroll = 0;
+let shopDragging = false;
+let shopStartY = 0;
+let shopStartScroll = 0;
+
 function getShopLayout() {
 
     const margin = 20;
-  const header = 95;
-const footer = 75;
+    const cardWidth = canvas.width - margin * 2;
+    const cardHeight = 150;
+    const spacing = 20;
 
-const cardHeight = 58;
-
-    const gap =
-        (canvas.height - header - footer - (cardHeight * 4)) / 5;
-
-    return [
+    const cards = [
 
         {
             type: "fire",
-            title: "🔥 Fire Rate",
+            title: "🔥 Trigger Speed",
+            description: "Fire faster.",
             x: margin,
-            y: header + gap,
-            w: canvas.width - margin * 2,
+            y: 100,
+            w: cardWidth,
             h: cardHeight
         },
 
         {
             type: "damage",
-            title: "💥 Damage",
+            title: "💥 Stopping Power",
+            description: "Increase bullet damage.",
             x: margin,
-            y: header + gap * 2 + cardHeight,
-            w: canvas.width - margin * 2,
+            y: 100 + (cardHeight + spacing),
+            w: cardWidth,
             h: cardHeight
         },
 
         {
             type: "speed",
-            title: "👟 Move Speed",
+            title: "👟 Mobility",
+            description: "Move faster while protecting the VIP.",
             x: margin,
-            y: header + gap * 3 + cardHeight * 2,
-            w: canvas.width - margin * 2,
+            y: 100 + (cardHeight + spacing) * 2,
+            w: cardWidth,
             h: cardHeight
         },
 
         {
             type: "health",
-            title: "❤️ VIP Health",
+            title: "❤️ VIP Protection",
+            description: "Increase the VIP's maximum health.",
             x: margin,
-            y: header + gap * 4 + cardHeight * 3,
-            w: canvas.width - margin * 2,
+            y: 100 + (cardHeight + spacing) * 3,
+            w: cardWidth,
             h: cardHeight
-        },
-
-        {
-            type: "start",
-            title: "START NEXT WAVE",
-            x: margin,
-            y: canvas.height - 60,
-            w: canvas.width - margin * 2,
-            h: 55
         }
 
     ];
+
+    const startButton = {
+
+        type: "start",
+
+        x: margin,
+
+        y:
+            100 +
+            (cardHeight + spacing) * cards.length +
+            40,
+
+        w: cardWidth,
+
+        h: 70
+
+    };
+
+    return {
+        cards,
+        startButton,
+        totalHeight:
+            startButton.y +
+            startButton.h +
+            40
+    };
 
 }
 
@@ -245,14 +270,18 @@ canvas.addEventListener("pointerdown", (e) => {
 
     if (shopOpen) {
 
-    handleShopClick(
-        e.clientX,
-        e.clientY
-    );
+        shopDragging = true;
+        shopStartY = e.clientY;
+        shopStartScroll = shopScroll;
 
-    return;
+        handleShopClick(
+            e.clientX,
+            e.clientY
+        );
 
-}
+        return;
+
+    }
 
     e.preventDefault();
 
@@ -262,6 +291,18 @@ canvas.addEventListener("pointerdown", (e) => {
 
 });
 canvas.addEventListener("pointermove", (e) => {
+
+    if (shopOpen && shopDragging) {
+
+        shopScroll =
+            shopStartScroll + (shopStartY - e.clientY);
+
+        if (shopScroll < 0)
+            shopScroll = 0;
+
+        return;
+
+    }
 
     if (e.pointerId === moveTouch) {
 
@@ -273,6 +314,8 @@ canvas.addEventListener("pointermove", (e) => {
 });
 
 canvas.addEventListener("pointerup", (e) => {
+
+    shopDragging = false;
 
     if (e.pointerId === moveTouch) {
 
@@ -882,83 +925,164 @@ function drawHUD() {
 // Shop
 if (shopOpen) {
 
-       const layout = getShopLayout();
+    const layout = getShopLayout();
 
-    // Dark background
-    ctx.fillStyle = "rgba(0,0,0,0.92)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Title
-    ctx.textAlign = "center";
-    ctx.fillStyle = "white";
-    ctx.font = "bold 34px Arial";
-    ctx.fillText("UPGRADE SHOP", canvas.width / 2, 45);
-
-    // Cash
-    ctx.fillStyle = "gold";
-    ctx.font = "26px Arial";
-    ctx.fillText("Cash: $" + cash, canvas.width / 2, 80);
-
-    // Save the button positions
     shopButtons.length = 0;
 
-    for (const item of layout) {
+    // Background
+    ctx.fillStyle = "rgba(0,0,0,0.95)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        shopButtons.push(item);
+    // Header
+    ctx.fillStyle = "white";
+    ctx.font = "bold 34px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("UPGRADE SHOP", canvas.width / 2, 45);
 
-        // Start button
-        if (item.type === "start") {
+    ctx.fillStyle = "gold";
+    ctx.font = "24px Arial";
+    ctx.fillText("$" + cash, canvas.width / 2, 78);
 
-            ctx.fillStyle = "#1fad43";
-            ctx.fillRect(item.x, item.y, item.w, item.h);
+    // Cards
+    for (const card of layout.cards) {
 
-            ctx.fillStyle = "white";
-            ctx.font = "bold 24px Arial";
-            ctx.textAlign = "center";
-            ctx.fillText(
-                item.title,
-                item.x + item.w / 2,
-                item.y + 36
-            );
+        const drawY = card.y - shopScroll;
 
+        // Don't draw cards off screen
+        if (drawY > canvas.height || drawY + card.h < 0)
             continue;
-        }
 
-        const level = upgradeLevels[item.type];
-        const cost =
-            level >= 4 ? "MAX" : "$" + upgradeCosts[level];
+        const level = upgradeLevels[card.type];
 
-        // Card
-        ctx.fillStyle = "#2d2d2d";
-        ctx.fillRect(item.x, item.y, item.w, item.h);
+        shopButtons.push({
+
+            type: card.type,
+
+            x: card.x,
+
+            y: drawY,
+
+            w: card.w,
+
+            h: card.h
+
+        });
+
+        ctx.fillStyle = "#2c2c2c";
+        ctx.fillRect(card.x, drawY, card.w, card.h);
+
+        ctx.strokeStyle = "#444";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(card.x, drawY, card.w, card.h);
 
         ctx.textAlign = "left";
 
         ctx.fillStyle = "white";
-        ctx.font = "20px Arial";
-        ctx.fillText(item.title, item.x + 15, item.y + 25);
+        ctx.font = "bold 24px Arial";
+        ctx.fillText(card.title, card.x + 18, drawY + 34);
 
-        ctx.font = "15px Arial";
-        ctx.fillText(
-            "Level " + (level + 1) + "/5",
-            item.x + 15,
-            item.y + 48
-        );
+        ctx.font = "18px Arial";
+        ctx.fillStyle = "#cccccc";
+        ctx.fillText(card.description, card.x + 18, drawY + 64);
 
-        ctx.textAlign = "right";
-        ctx.fillStyle =
-            cost === "MAX"
-                ? "#4db8ff"
-                : (cash >= upgradeCosts[level]
-                    ? "#3cff3c"
-                    : "#ff4d4d");
+        // Stars
+        let stars = "";
 
-        ctx.fillText(
-            cost,
-            item.x + item.w - 15,
-            item.y + 38
-        );
+        for (let i = 0; i < 4; i++) {
+            stars += i < level ? "★" : "☆";
+        }
+
+        ctx.font = "26px Arial";
+        ctx.fillStyle = "gold";
+        ctx.fillText(stars, card.x + 18, drawY + 104);
+
+        // Upgrade button
+        const buttonWidth = 120;
+        const buttonHeight = 40;
+
+        const buttonX = card.x + card.w - buttonWidth - 15;
+        const buttonY = drawY + card.h - buttonHeight - 15;
+
+        shopButtons.push({
+
+            type: card.type + "_upgrade",
+
+            x: buttonX,
+            y: buttonY,
+            w: buttonWidth,
+            h: buttonHeight
+
+        });
+
+        if (level >= 4) {
+
+            ctx.fillStyle = "#3d8cff";
+            ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
+
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.fillText("MAXED", buttonX + 60, buttonY + 27);
+
+        } else {
+
+            const affordable = cash >= upgradeCosts[level];
+
+            ctx.fillStyle = affordable ? "#24b34b" : "#555";
+            ctx.fillRect(buttonX, buttonY, buttonWidth, buttonHeight);
+
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.font = "18px Arial";
+
+            ctx.fillText(
+
+                "$" + upgradeCosts[level],
+
+                buttonX + 60,
+
+                buttonY + 26
+
+            );
+
+        }
+
     }
+
+    // Start button
+
+    const start = layout.startButton;
+
+    const startY = start.y - shopScroll;
+
+    shopButtons.push({
+
+        type: "start",
+
+        x: start.x,
+
+        y: startY,
+
+        w: start.w,
+
+        h: start.h
+
+    });
+
+    ctx.fillStyle = "#1aad42";
+    ctx.fillRect(start.x, startY, start.w, start.h);
+
+    ctx.fillStyle = "white";
+    ctx.font = "bold 28px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(
+
+        "START NEXT WAVE",
+
+        start.x + start.w / 2,
+
+        startY + 44
+
+    );
 
     ctx.textAlign = "left";
 }
