@@ -1103,7 +1103,6 @@ if (shopOpen) {
     ctx.textAlign = "left";
 }
 
-}
 if (confirmUpgrade) {
 
     ctx.fillStyle = "rgba(0,0,0,0.6)";
