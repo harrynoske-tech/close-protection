@@ -823,49 +823,109 @@ function drawHUD() {
         ctx.textAlign = "left";
     }
 
-    // Shop
-    if (shopOpen) {
+// Shop
+if (shopOpen) {
 
-        ctx.fillStyle = "rgba(0,0,0,0.8)";
-        ctx.fillRect(
-            60,
-            80,
-            canvas.width - 120,
-            canvas.height - 160
-        );
+    ctx.fillStyle = "rgba(0,0,0,0.92)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = "#444";
+    ctx.textAlign = "center";
 
-for (const button of shopButtons) {
+    ctx.fillStyle = "white";
+    ctx.font = "bold 38px Arial";
+    ctx.fillText("UPGRADE SHOP", canvas.width / 2, 60);
 
-    ctx.fillRect(
-        button.x,
-        button.y,
-        button.w,
-        button.h
-    );
+    ctx.font = "28px Arial";
+    ctx.fillStyle = "gold";
+    ctx.fillText("Cash: $" + cash, canvas.width / 2, 100);
 
-}
+    const names = [
+        "🔥 Fire Rate",
+        "💥 Damage",
+        "👟 Move Speed",
+        "❤️ VIP Health"
+    ];
+
+    const types = [
+        "fire",
+        "damage",
+        "speed",
+        "health"
+    ];
+
+    const startY = 140;
+    const gap = 100;
+    const cardWidth = canvas.width - 60;
+    const cardHeight = 80;
+
+    for (let i = 0; i < 4; i++) {
+
+        const y = startY + i * gap;
+
+        shopButtons[i].x = 30;
+        shopButtons[i].y = y;
+        shopButtons[i].w = cardWidth;
+        shopButtons[i].h = cardHeight;
+
+        ctx.fillStyle = "#303030";
+        ctx.fillRect(30, y, cardWidth, cardHeight);
 
         ctx.fillStyle = "white";
-        ctx.textAlign = "center";
+        ctx.font = "24px Arial";
+        ctx.textAlign = "left";
+        ctx.fillText(names[i], 45, y + 28);
 
-        ctx.font = "40px Arial";
+        ctx.font = "18px Arial";
+
+        const level = upgradeLevels[types[i]];
+        const cost = level < 4 ? upgradeCosts[level] : "MAX";
+
         ctx.fillText(
-            "UPGRADE SHOP",
-            canvas.width / 2,
-            140
+            "Level " + (level + 1) + "/5",
+            45,
+            y + 55
         );
 
-        ctx.font = "28px Arial";
+        ctx.textAlign = "right";
 
-        ctx.fillText("Fire Rate", canvas.width / 2, 218);
-ctx.fillText("Damage", canvas.width / 2, 283);
-ctx.fillText("Range", canvas.width / 2, 348);
-ctx.fillText("Heal VIP", canvas.width / 2, 413);
+        ctx.fillStyle =
+            cost === "MAX"
+                ? "deepskyblue"
+                : (cash >= cost ? "lime" : "red");
 
-        ctx.textAlign = "left";
+        ctx.fillText(
+            cost === "MAX"
+                ? "MAX"
+                : "$" + cost,
+            canvas.width - 45,
+            y + 45
+        );
     }
+
+    shopButtons[4].x = 30;
+    shopButtons[4].y = canvas.height - 90;
+    shopButtons[4].w = canvas.width - 60;
+    shopButtons[4].h = 60;
+
+    ctx.fillStyle = "#1f9d3a";
+    ctx.fillRect(
+        shopButtons[4].x,
+        shopButtons[4].y,
+        shopButtons[4].w,
+        shopButtons[4].h
+    );
+
+    ctx.fillStyle = "white";
+    ctx.font = "bold 28px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText(
+        "START NEXT WAVE",
+        canvas.width / 2,
+        shopButtons[4].y + 39
+    );
+
+    ctx.textAlign = "left";
+}
 
 }
 function handleShopClick(x, y) {
