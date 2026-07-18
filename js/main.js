@@ -1151,10 +1151,12 @@ if (confirmUpgrade) {
     ctx.fillStyle="white";
     ctx.fillText("PURCHASE",canvas.width/2+85,y+182);
 
-}
+}   // closes if(confirmUpgrade)
+
+}   // closes drawHUD()
+
 // --------------------------------------------------
 // GAME LOOP
-// --------------------------------------------------
 
 function gameLoop() {
 
