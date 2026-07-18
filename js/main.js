@@ -882,113 +882,83 @@ function drawHUD() {
 // Shop
 if (shopOpen) {
 
+       const layout = getShopLayout();
+
+    // Dark background
     ctx.fillStyle = "rgba(0,0,0,0.92)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    // Title
     ctx.textAlign = "center";
-
     ctx.fillStyle = "white";
-    ctx.font = "bold 38px Arial";
-    ctx.fillText("UPGRADE SHOP", canvas.width / 2, 60);
+    ctx.font = "bold 34px Arial";
+    ctx.fillText("UPGRADE SHOP", canvas.width / 2, 45);
 
-    ctx.font = "28px Arial";
+    // Cash
     ctx.fillStyle = "gold";
-    ctx.fillText("Cash: $" + cash, canvas.width / 2, 100);
+    ctx.font = "26px Arial";
+    ctx.fillText("Cash: $" + cash, canvas.width / 2, 80);
 
-    const names = [
-        "🔥 Fire Rate",
-        "💥 Damage",
-        "👟 Move Speed",
-        "❤️ VIP Health"
-    ];
+    // Save the button positions
+    shopButtons.length = 0;
 
-    const types = [
-        "fire",
-        "damage",
-        "speed",
-        "health"
-    ];
+    for (const item of layout) {
 
-    const cardWidth = canvas.width - 40;
-const cardHeight = 50;
+        shopButtons.push(item);
 
-const topMargin = 120;
-const bottomMargin = 90;
+        // Start button
+        if (item.type === "start") {
 
-// Space available for the four cards
-const availableHeight =
-    canvas.height - topMargin - bottomMargin;
+            ctx.fillStyle = "#1fad43";
+            ctx.fillRect(item.x, item.y, item.w, item.h);
 
-// Evenly distribute the cards
-const gap = availableHeight / 4;
+            ctx.fillStyle = "white";
+            ctx.font = "bold 24px Arial";
+            ctx.textAlign = "center";
+            ctx.fillText(
+                item.title,
+                item.x + item.w / 2,
+                item.y + 36
+            );
 
-const startY = topMargin;
+            continue;
+        }
 
-    for (let i = 0; i < 4; i++) {
+        const level = upgradeLevels[item.type];
+        const cost =
+            level >= 4 ? "MAX" : "$" + upgradeCosts[level];
 
-        const y = startY + (i * gap);
+        // Card
+        ctx.fillStyle = "#2d2d2d";
+        ctx.fillRect(item.x, item.y, item.w, item.h);
 
-        shopButtons[i].x = 30;
-        shopButtons[i].y = y;
-        shopButtons[i].w = cardWidth;
-        shopButtons[i].h = cardHeight;
-
-        ctx.fillStyle = "#303030";
-        ctx.fillRect(30, y, cardWidth, cardHeight);
+        ctx.textAlign = "left";
 
         ctx.fillStyle = "white";
-        ctx.font = "24px Arial";
-        ctx.textAlign = "left";
-        ctx.fillText(names[i], 45, y + 28);
+        ctx.font = "22px Arial";
+        ctx.fillText(item.title, item.x + 15, item.y + 25);
 
-        ctx.font = "18px Arial";
-
-        const level = upgradeLevels[types[i]];
-        const cost = level < 4 ? upgradeCosts[level] : "MAX";
-
+        ctx.font = "16px Arial";
         ctx.fillText(
             "Level " + (level + 1) + "/5",
-            45,
-            y + 55
+            item.x + 15,
+            item.y + 48
         );
 
         ctx.textAlign = "right";
-
         ctx.fillStyle =
             cost === "MAX"
-                ? "deepskyblue"
-                : (cash >= cost ? "lime" : "red");
+                ? "#4db8ff"
+                : (cash >= upgradeCosts[level]
+                    ? "#3cff3c"
+                    : "#ff4d4d");
 
         ctx.fillText(
-            cost === "MAX"
-                ? "MAX"
-                : "$" + cost,
-            canvas.width - 45,
-            y + 45
+            cost,
+            item.x + item.w - 15,
+            item.y + 38
         );
     }
-
-    shopButtons[4].x = 30;
-    shopButtons[4].y = canvas.height - 90;
-    shopButtons[4].w = canvas.width - 60;
-    shopButtons[4].h = 60;
-
-    ctx.fillStyle = "#1f9d3a";
-    ctx.fillRect(
-        shopButtons[4].x,
-        shopButtons[4].y,
-        shopButtons[4].w,
-        shopButtons[4].h
-    );
-
-    ctx.fillStyle = "white";
-    ctx.font = "bold 28px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText(
-        "START NEXT WAVE",
-        canvas.width / 2,
-        shopButtons[4].y + 39
-    );
 
     ctx.textAlign = "left";
 }
