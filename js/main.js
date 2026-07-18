@@ -1077,6 +1077,8 @@ updateShooting();
 
     // HUD
     drawHUD();
+
+    if (!shopOpen) {
     
         // --------------------------------------------------
     // JOYSTICKS
@@ -1138,6 +1140,8 @@ if (moveTouch !== null) {
     );
     ctx.fillStyle = "#4da6ff";
     ctx.fill();
+
+    }
 
     requestAnimationFrame(gameLoop);
 
