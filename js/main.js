@@ -327,6 +327,8 @@ function getClosestEnemy() {
 
     for (const enemy of enemies) {
 
+        if (enemy.type === "knife") continue;
+
         const d = Math.hypot(
             enemy.x - guard.x,
             enemy.y - guard.y
