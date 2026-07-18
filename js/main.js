@@ -135,6 +135,7 @@ let shopScroll = 0;
 let shopDragging = false;
 let shopStartY = 0;
 let shopStartScroll = 0;
+let shopMoved = false;
 
 function getShopLayout() {
 
@@ -268,20 +269,17 @@ for (let i = 0; i < firstWaveEnemies; i++) {
 
 canvas.addEventListener("pointerdown", (e) => {
 
-    if (shopOpen) {
+ if (shopOpen) {
 
-        shopDragging = true;
-        shopStartY = e.clientY;
-        shopStartScroll = shopScroll;
+    shopDragging = true;
+    shopMoved = false;
 
-        handleShopClick(
-            e.clientX,
-            e.clientY
-        );
+    shopStartY = e.clientY;
+    shopStartScroll = shopScroll;
 
-        return;
+    return;
 
-    }
+}
 
     e.preventDefault();
 
@@ -294,13 +292,18 @@ canvas.addEventListener("pointermove", (e) => {
 
     if (shopOpen && shopDragging) {
 
-        shopScroll =
-            shopStartScroll + (shopStartY - e.clientY);
+        const distance = Math.abs(e.clientY - shopStartY);
 
-        if (shopScroll < 0)
-            shopScroll = 0;
+if (distance > 10)
+    shopMoved = true;
 
-        return;
+shopScroll =
+    shopStartScroll + (shopStartY - e.clientY);
+
+if (shopScroll < 0)
+    shopScroll = 0;
+
+return;
 
     }
 
@@ -315,7 +318,20 @@ canvas.addEventListener("pointermove", (e) => {
 
 canvas.addEventListener("pointerup", (e) => {
 
-    shopDragging = false;
+    if (shopOpen) {
+
+        if (!shopMoved) {
+
+            handleShopClick(
+                e.clientX,
+                e.clientY
+            );
+
+        }
+
+        shopDragging = false;
+        return;
+    }
 
     if (e.pointerId === moveTouch) {
 
