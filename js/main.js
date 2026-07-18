@@ -120,6 +120,20 @@ const shopButtons = [
     { type: "start" }
 ];
 
+const upgradeLevels = {
+    fire: 0,
+    damage: 0,
+    speed: 0,
+    health: 0
+};
+
+const upgradeCosts = [
+    500,
+    1000,
+    5000,
+    10000
+];
+
 resize();
 
 function randomEnemy() {
