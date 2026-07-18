@@ -853,14 +853,24 @@ if (shopOpen) {
         "health"
     ];
 
-    const startY = 140;
-    const gap = 100;
-    const cardWidth = canvas.width - 60;
-    const cardHeight = 80;
+    const cardWidth = canvas.width - 40;
+const cardHeight = 50;
+
+const topMargin = 120;
+const bottomMargin = 90;
+
+// Space available for the four cards
+const availableHeight =
+    canvas.height - topMargin - bottomMargin;
+
+// Evenly distribute the cards
+const gap = availableHeight / 4;
+
+const startY = topMargin;
 
     for (let i = 0; i < 4; i++) {
 
-        const y = startY + i * gap;
+        const y = startY + (i * gap);
 
         shopButtons[i].x = 30;
         shopButtons[i].y = y;
