@@ -677,6 +677,9 @@ function updateVIPDamage() {
 
     for (const enemy of enemies) {
 
+        // Fallen protesters can't hurt the VIP
+        if (enemy.falling) continue;
+
         const dist = Math.hypot(
             enemy.x - vip.x,
             enemy.y - vip.y
