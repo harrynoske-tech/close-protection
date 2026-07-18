@@ -131,10 +131,10 @@ const upgradeCosts = [
 function getShopLayout() {
 
     const margin = 20;
-    const header = 110;
-    const footer = 90;
+  const header = 95;
+const footer = 75;
 
-    const cardHeight = 72;
+const cardHeight = 58;
 
     const gap =
         (canvas.height - header - footer - (cardHeight * 4)) / 5;
@@ -181,7 +181,7 @@ function getShopLayout() {
             type: "start",
             title: "START NEXT WAVE",
             x: margin,
-            y: canvas.height - 75,
+            y: canvas.height - 60,
             w: canvas.width - margin * 2,
             h: 55
         }
@@ -935,10 +935,10 @@ if (shopOpen) {
         ctx.textAlign = "left";
 
         ctx.fillStyle = "white";
-        ctx.font = "22px Arial";
+        ctx.font = "20px Arial";
         ctx.fillText(item.title, item.x + 15, item.y + 25);
 
-        ctx.font = "16px Arial";
+        ctx.font = "15px Arial";
         ctx.fillText(
             "Level " + (level + 1) + "/5",
             item.x + 15,
