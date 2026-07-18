@@ -1104,59 +1104,51 @@ if (shopOpen) {
 }
 
 }
-function handleShopClick(x, y) {
+if (confirmUpgrade) {
 
-    for (const button of shopButtons) {
+    ctx.fillStyle = "rgba(0,0,0,0.6)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
-        if (
-            x >= button.x &&
-            x <= button.x + button.w &&
-            y >= button.y &&
-            y <= button.y + button.h
-        ) {
+    const w = 340;
+    const h = 230;
 
-            switch (button.type) {
+    const x = canvas.width/2 - w/2;
+    const y = canvas.height/2 - h/2;
 
-                case "fire":
-                    guard.fireRate = Math.max(
-                        80,
-                        guard.fireRate - 25
-                    );
-                    break;
+    ctx.fillStyle = "#2f2f2f";
+    ctx.fillRect(x,y,w,h);
 
-                case "damage":
-                    guard.damage += 10;
-                    break;
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x,y,w,h);
 
-                case "range":
-                    guard.range += 20;
-                    break;
+    ctx.fillStyle = "white";
+    ctx.font = "bold 26px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("AUTHORISE UPGRADE",canvas.width/2,y+40);
 
-                case "heal":
-                    vip.health = vip.maxHealth;
-                    break;
+    ctx.font = "22px Arial";
+    ctx.fillStyle = "gold";
+    ctx.fillText(confirmUpgrade.toUpperCase(),canvas.width/2,y+85);
 
-            }
+    const cost = upgradeCosts[upgradeLevels[confirmUpgrade]];
 
-            shopOpen = false;
-            betweenWaves = false;
-            
-wave++;
+    ctx.fillStyle="white";
+    ctx.fillText("$"+cost,canvas.width/2,y+120);
 
-const enemyCount = wave + 2;
+    // Cancel
+    ctx.fillStyle="#666";
+    ctx.fillRect(canvas.width/2-150,y+150,130,50);
 
-enemiesRemaining = enemyCount;
+    ctx.fillStyle="white";
+    ctx.fillText("CANCEL",canvas.width/2-85,y+182);
 
-for (let i = 0; i < enemyCount; i++) {
-    enemies.push(randomEnemy());
-}
+    // Purchase
+    ctx.fillStyle="#1aad42";
+    ctx.fillRect(canvas.width/2+20,y+150,130,50);
 
-
-            return;
-
-        }
-
-    }
+    ctx.fillStyle="white";
+    ctx.fillText("PURCHASE",canvas.width/2+85,y+182);
 
 }
 // --------------------------------------------------
