@@ -137,6 +137,8 @@ let shopStartY = 0;
 let shopStartScroll = 0;
 let shopMoved = false;
 
+let confirmUpgrade = null;
+
 function getShopLayout() {
 
     const margin = 20;
